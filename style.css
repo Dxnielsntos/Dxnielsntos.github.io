@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Un fondo mucho más suave y elegante */
+    background: radial-gradient(circle at center, #fdfbfb 0%, #ebedee 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+}
+
+.title-font {
+    font-family: 'Dancing Script', cursive;
+    color: #b71540; /* Un rojo más profundo y elegante */
+}
+
+.main-canvas {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- EL SOBRE PREMIUM --- */
+.envelope-wrapper {
+    position: relative;
+    width: 340px;
+    height: 230px;
+    z-index: 10;
+}
+
+#envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f4ebd8; /* Papel pergamino claro */
+    border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 170px solid transparent;
+    border-right: 170px solid transparent;
+    border-top: 125px solid #e8dec5; /* Sombra de la solapa */
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
+    z-index: 4;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.05));
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 170px solid #fcf7ef;
+    border-right: 170px solid #fcf7ef;
+    border-bottom: 125px solid #f2e6d0;
+    border-top: 105px solid transparent;
+    border-radius: 0 0 4px 4px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* --- LA CARTA ELEGANTE --- */
+.letter {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #f0f0f0;
+}
+
+.message h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.message p {
+    margin-top: 12px;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #4a4a4a;
+    text-align: justify;
+}
+
+.signature {
+    margin-top: 30px !important;
+    font-size: 26px !important;
+    text-align: right;
+}
+
+/* --- EL SELLO --- */
+.wax-seal {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.3s ease, opacity 0.4s ease;
+    filter: drop-shadow(0 6px 8px rgba(138, 0, 0, 0.2));
+}
+
+.wax-seal:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- ANIMACIONES DE APERTURA --- */
+#envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+#envelope.open .letter {
+    transform: translateY(-140px);
+    z-index: 5;
+}
+
+#envelope.open .letter.expanded {
+    transform: translateY(0);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    width: 380px;
+    height: 550px;
+    z-index: 100;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+    cursor: auto;
+    overflow-y: auto;
+    padding-bottom: 40px;
+    justify-content: flex-start;
+}
+
+#envelope.open .wax-seal {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- EL ESTILO POLAROID PARA TUS STICKERS --- */
+.sticker { 
+    position: absolute; 
+    z-index: 1; 
+    /* Efecto fotografía física */
+    background-color: white;
+    padding: 8px 8px 25px 8px; /* Marco blanco tipo polaroid */
+    border-radius: 2px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #e1e1e1;
+    /* Movimiento */
+    animation: float 4s ease-in-out infinite;
+    transition: transform 0.3s ease, z-index 0.3s;
+}
+
+/* Efecto al pasar el mouse por encima de las fotos */
+.sticker:hover {
+    transform: scale(1.15) !important; /* Se hace grande */
+    z-index: 50; /* Pasa al frente */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    cursor: grab;
+}
+
+/* Tamaños ajustados para que las "fotos" sean uniformes */
+.minion-peek { top: 4%; left: 50%; transform: translateX(-50%); width: 100px; animation-delay: 0s; }
+.snoopy-flowers { top: 10%; left: 8%; width: 110px; transform: rotate(-12deg); animation-delay: 0.5s; }
+.minion-rose { top: 10%; right: 8%; width: 105px; transform: rotate(15deg); animation-delay: 1.2s; }
+.snoopy-happy { top: 40%; left: 6%; width: 95px; transform: rotate(-5deg); animation-delay: 0.3s; }
+.snoopy-stress { top: 40%; right: 6%; width: 100px; transform: rotate(8deg); animation-delay: 1.5s; }
+.snoopy-hearts { bottom: 8%; left: 10%; width: 110px; transform: rotate(-10deg); animation-delay: 0.8s; }
+.snoopy-woodstock-heart { bottom: 8%; right: 10%; width: 105px; transform: rotate(12deg); animation-delay: 1.8s; }
+.minion-pajamas { bottom: 3%; left: 50%; transform: translateX(-50%); width: 90px; animation-delay: 0.6s; }
+
+/* Globos y Corazones mucho más minimalistas */
+.balloon { 
+    font-size: 30px; 
+    position: absolute; 
+    z-index: 0; 
+    opacity: 0.6; /* No compiten con el contenido principal */
+    animation: float 6s ease-in-out infinite; 
+}
+
+.heart { 
+    position: absolute; 
+    width: 20px; 
+    height: 20px; 
+    background-color: #d1d1d1; /* Plateado sofisticado */
+    transform: rotate(45deg); 
+    z-index: 0; 
+    opacity: 0.5; 
+    animation: pulse 3s ease-in-out infinite; 
+}
+
+.heart::before, .heart::after { 
+    content: ""; 
+    position: absolute; 
+    width: 20px; 
+    height: 20px; 
+    background-color: #d1d1d1; 
+    border-radius: 50%; 
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after { top: 0; left: -10px; }
+
+@keyframes pulse { 
+    0%, 100% { transform: rotate(45deg) scale(1); } 
+    50% { transform: rotate(45deg) scale(1.05); } 
+}
+
+@keyframes float { 
+    0%, 100% { margin-top: 0; } 
+    50% { margin-top: -15px; } 
+}
