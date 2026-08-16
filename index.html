@@ -3,738 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Cumpleaños</title>
-    <!-- Google Fonts -->
+    <title>Una Carta para Ti - Galaxia de Corazones (Realismo)</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Paleta Elegante */
-            --bg-deep: #0a0002;
-            --bg-wine: #2a030b;
-            --bg-burgundy: #4a0414;
-            --gold-light: #fbe095;
-            --gold-rich: #d4af37;
-            --gold-dark: #aa8c2c;
-            --paper-main: #fcf9f2;
-            --paper-shadow: #e6dccf;
-            --envelope-back: #c7b6a3;
-            --envelope-left: #dfcebd;
-            --envelope-right: #d8c6b4;
-            --envelope-bottom: #e8d7c8;
-            --envelope-top: #ebdccc;
-            --text-dark: #2c2c2c;
-            --text-wine: #5a0b18;
-            --silver-light: #f5f5f5;
-            --silver-dark: #999999;
-            --wax-light: #e62e2e;
-            --wax-main: #b30000;
-            --wax-dark: #4d0000;
+            var(--silver-gradient): linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%);
+            var(--paper): #ffffff;
+            --text-body: #000000;
+            --text-galaxy: #1e103c;
+            --text-highlight: #4c1d95;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: radial-gradient(circle at 50% 50%, var(--bg-burgundy) 0%, var(--bg-wine) 50%, var(--bg-deep) 100%);
-            min-height: 100vh;
-            overflow: hidden;
-            font-family: 'Playfair Display', serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-dark);
+            background-color: #020005; 
+            background-image: 
+                radial-gradient(circle at 15% 40%, rgba(67, 17, 128, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(162, 28, 175, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(14, 58, 140, 0.5) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
+            min-height: 100vh; overflow: hidden; font-family: 'Cormorant Garamond', serif;
+            display: flex; justify-content: center; align-items: center; perspective: 2000px;
         }
 
-        /* --- SVGs Globales Escondidos --- */
-        .svg-defs {
-            position: absolute;
-            width: 0;
-            height: 0;
-        }
-
-        /* --- Iluminación Ambiental --- */
-        .ambient-orbs {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.3;
-            animation: breathe 8s ease-in-out infinite alternate;
-        }
-
-        .orb-1 { width: 40vw; height: 40vw; background: var(--gold-rich); top: -10%; left: -10%; }
-        .orb-2 { width: 50vw; height: 50vw; background: var(--wax-main); bottom: -15%; right: -10%; animation-delay: -4s; }
-        .orb-3 { width: 30vw; height: 30vw; background: #ffffff; top: 40%; left: 40%; opacity: 0.1; animation-delay: -2s; }
-
-        @keyframes breathe {
-            0% { transform: scale(1); opacity: 0.2; }
-            100% { transform: scale(1.2); opacity: 0.4; }
-        }
-
-        /* --- Marco Decorativo Perimetral --- */
-        .frame {
-            position: absolute;
-            inset: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .frame::before, .frame::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .corner {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(212, 175, 55, 0.6);
-            background: transparent;
-        }
-
-        .corner-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .corner-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-        .corner-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-        .corner-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
-
-        .corner-inner {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
-
-        .corner-tl .corner-inner { top: 5px; left: 5px; border-right: none; border-bottom: none; }
-        .corner-tr .corner-inner { top: 5px; right: 5px; border-left: none; border-bottom: none; }
-        .corner-bl .corner-inner { bottom: 5px; left: 5px; border-right: none; border-top: none; }
-        .corner-br .corner-inner { bottom: 5px; right: 5px; border-left: none; border-top: none; }
-
-        /* --- Partículas Flotantes --- */
-        #particles-container {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #fff, 0 0 12px var(--gold-light);
-            animation: twinkle linear infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .heart-float {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 182, 193, 0.6);
-            transform: rotate(-45deg);
-            animation: floatUp linear infinite;
-            box-shadow: 0 0 10px rgba(255, 182, 193, 0.4);
-        }
-        .heart-float::before, .heart-float::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: inherit;
-            border-radius: 50%;
-        }
-        .heart-float::before { top: -6px; left: 0; }
-        .heart-float::after { top: 0; left: 6px; }
-
-        .balloon {
-            position: absolute;
-            width: 20px;
-            height: 25px;
-            border-radius: 80% 80% 80% 80% / 100% 100% 60% 60%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(212, 175, 55, 0.5));
-            box-shadow: inset -2px -2px 6px rgba(0,0,0,0.1);
-            animation: floatUpSway linear infinite;
-        }
-        .balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            width: 1px;
-            height: 15px;
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .butterfly {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            animation: flyPath linear infinite;
-            will-change: transform;
-        }
-        .butterfly-inner {
-            width: 100%;
-            height: 100%;
-            animation: flutter 0.15s infinite alternate;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(-45deg) scale(0.8); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(-45deg) scale(1.2); opacity: 0; }
-        }
-
-        @keyframes floatUpSway {
-            0% { transform: translateY(110vh) translateX(0); opacity: 0; }
-            10% { opacity: 0.8; }
-            50% { transform: translateY(50vh) translateX(30px); }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) translateX(-20px); opacity: 0; }
-        }
-
-        @keyframes flyPath {
-            0% { transform: translate(-10vw, 110vh) rotate(20deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translate(110vw, -10vh) rotate(-20deg); opacity: 0; }
-        }
-
-        @keyframes flutter {
-            0% { transform: scaleX(1); }
-            100% { transform: scaleX(0.2); }
-        }
-
-        /* --- Escena y Sobre --- */
-        .scene {
-            position: relative;
-            z-index: 20;
-            perspective: 1500px;
-        }
-
-        .envelope-wrapper {
-            position: relative;
-            width: 90vw;
-            max-width: 420px;
-            aspect-ratio: 1.45;
-            margin: 0 auto;
-            animation: levitateEnvelope 5s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes levitateEnvelope {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        /* Capas del sobre */
-        .env-back {
-            position: absolute;
-            inset: 0;
-            background: var(--envelope-back);
-            border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.1);
-            z-index: 1;
-        }
-
-        /* Carta Falsa (la que asoma) */
-        .letter-stub {
-            position: absolute;
-            top: 5%; left: 3%; right: 3%; bottom: 5%;
-            background: radial-gradient(circle at center, var(--paper-main), var(--paper-shadow));
-            border-radius: 2px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 2;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
+        #starfield { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
         
-        .letter-stub-lines {
-            width: 100%; height: 2px; background: rgba(212, 175, 55, 0.3); margin-top: 10px; border-radius: 2px;
+        .star {
+            position: absolute; background: #fff; border-radius: 50%;
+            animation: twinkle var(--twinkle-dur) ease-in-out infinite alternate;
         }
-        .letter-stub-lines:nth-child(2) { width: 80%; }
-        .letter-stub-lines:nth-child(3) { width: 90%; }
+        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #fff; } }
 
-        .letter-stub.is-sliding-out {
-            transform: translateY(-75%);
+        /* PLANETAS REALISTAS Y SUS ÓRBITAS */
+        .heart-planet {
+            position: fixed; z-index: 2; pointer-events: none;
+            animation: orbitPlanet 40s linear infinite;
         }
-
-        /* Frente del sobre */
-        .env-front-left {
-            position: absolute; inset: 0; z-index: 3;
-            background: linear-gradient(135deg, var(--envelope-left) 0%, #d4c2b0 100%);
-            clip-path: polygon(0 0, 0 100%, 52% 52%);
-            border-radius: 4px 0 0 4px;
-            filter: drop-shadow(2px 0 5px rgba(0,0,0,0.1));
-        }
-        .env-front-right {
-            position: absolute; inset: 0; z-index: 3;
-            background: linear-gradient(-135deg, var(--envelope-right) 0%, #cbb7a4 100%);
-            clip-path: polygon(100% 0, 100% 100%, 48% 52%);
-            border-radius: 0 4px 4px 0;
-            filter: drop-shadow(-2px 0 5px rgba(0,0,0,0.1));
-        }
-        .env-front-bottom {
-            position: absolute; inset: 0; z-index: 4;
-            background: linear-gradient(to top, var(--envelope-bottom) 0%, #dfccba 100%);
-            clip-path: polygon(0 100%, 100% 100%, 50% 48%);
-            border-radius: 0 0 4px 4px;
-            filter: drop-shadow(0 -2px 5px rgba(0,0,0,0.2));
+        @keyframes orbitPlanet {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(4deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
 
-        /* Solapa Superior y Sello */
-        .env-flap-top-wrapper {
-            position: absolute; inset: 0; z-index: 5;
-            transform-origin: top center;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
-            transform-style: preserve-3d;
-        }
+        .planet-1 { width: 42vw; max-width: 420px; top: -8%; left: -5%; opacity: 0.95; animation-duration: 45s; filter: drop-shadow(0 0 45px rgba(14, 165, 233, 0.45)); }
+        .planet-2 { width: 32vw; max-width: 320px; bottom: 5%; right: -2%; opacity: 0.95; animation-duration: 35s; animation-delay: -10s; filter: drop-shadow(0 0 40px rgba(217, 119, 6, 0.4)); }
+        .planet-3 { width: 18vw; max-width: 180px; top: 12%; right: 12%; opacity: 0.9; animation-duration: 50s; animation-delay: -25s; filter: drop-shadow(0 0 30px rgba(220, 38, 38, 0.4)); }
 
-        .env-flap-shape {
-            position: absolute; top: 0; left: 0; right: 0; height: 65%;
-            background: linear-gradient(to bottom, var(--envelope-top) 0%, #e0cebc 100%);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            pointer-events: auto;
+        .page-frame { position: fixed; inset: 15px; border: 1px solid rgba(255, 255, 255, 0.05); pointer-events: none; z-index: 5; border-radius: 4px; }
+        .page-corner { 
+            position: absolute; width: 100px; height: 100px; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' d='M25,5 L28,22 L45,25 L28,28 L25,45 L22,28 L5,25 L22,22 Z'/%3E%3Cpath fill='%23cbd5e1' d='M65,15 L66.5,23.5 L75,25 L66.5,26.5 L65,35 L63.5,26.5 L55,25 L63.5,23.5 Z'/%3E%3Ccircle cx='85' cy='45' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='15' cy='75' r='2' fill='%23cbd5e1'/%3E%3C/svg%3E"); 
+            background-size: contain; background-repeat: no-repeat; opacity: 0.8; filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
         }
+        .pc-tl { top: 0px; left: 0px; } .pc-tr { top: 0px; right: 0px; transform: scaleX(-1); } .pc-bl { bottom: 0px; left: 0px; transform: scaleY(-1); } .pc-br { bottom: 0px; right: 0px; transform: scale(-1, -1); }
 
-        /* Sombra interna para dar profundidad a la solapa */
-        .env-flap-shape::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 80%, rgba(0,0,0,0.05) 100%);
-        }
+        .text-cosmic { font-family: 'Great Vibes', cursive; color: var(--text-galaxy); text-shadow: 1px 1px 0px rgba(0,0,0,0.05); line-height: 1.4; padding: 10px; }
 
-        /* --- Sello de Cera --- */
-        .wax-seal {
-            position: absolute;
-            top: 64%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 75px;
-            height: 75px;
-            background: radial-gradient(circle at 35% 35%, var(--wax-light) 0%, var(--wax-main) 40%, var(--wax-dark) 100%);
-            border-radius: 50%;
-            border: 1px solid #660000;
-            box-shadow: 
-                0 6px 12px rgba(0,0,0,0.5), 
-                inset 0 3px 6px rgba(255,255,255,0.4), 
-                inset 0 -3px 6px rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: auto;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 6;
-        }
+        /* EL SOBRE */
+        .stage { position: relative; z-index: 20; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .stage.is-background { filter: blur(10px); transform: scale(0.85) translateY(50px); pointer-events: none; opacity: 0; }
 
-        .wax-seal::before {
-            /* Borde irregular de la cera */
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 45% 55% 50% 50% / 55% 45% 50% 50%;
-            background: radial-gradient(circle at 30% 30%, var(--wax-main) 0%, var(--wax-dark) 100%);
-            z-index: -1;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-        }
+        .envelope-wrapper { position: relative; width: 400px; height: 260px; margin: 0 auto; animation: gentleFloat 6s ease-in-out infinite; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 0 60px rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.8); border-radius: 4px; }
+        @keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 50px 90px rgba(0, 0, 0, 0.9); } }
 
-        .wax-seal:hover {
-            transform: translate(-50%, -50%) scale(1.08);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 3px 6px rgba(255,255,255,0.5);
-        }
+        .env-back { position: absolute; inset: 0; background: #f4f6f8; border-radius: 4px; box-shadow: inset 0 0 40px rgba(148, 163, 184, 0.3); }
+        .env-silver-lining { position: absolute; inset: 0; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%); background-size: 200%; animation: shine 4s linear infinite; clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%); z-index: 3; }
+        @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        .silver-heart {
-            width: 45px;
-            height: 45px;
-            position: absolute;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.6));
-        }
+        .env-front { position: absolute; inset: 2px; z-index: 4; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 50% 49.5%, 100% 0, 100% 100%, 0 100%); filter: drop-shadow(0 -3px 10px rgba(0,0,0,0.15)); }
 
-        .seal-letter {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.8rem;
-            color: var(--wax-dark);
-            position: absolute;
-            z-index: 2;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.6);
-            transform: translateY(-2px);
-        }
+        .letter-preview { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; align-items: center; padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; }
+        .preview-title { font-size: 3.2rem; margin: 0; }
+        .envelope-wrapper.is-opening .letter-preview { transform: translateY(-75%) scale(0.95); }
 
-        /* --- Animaciones de Apertura --- */
-        .envelope-wrapper.is-open .env-flap-top-wrapper {
-            transform: rotateX(180deg);
-        }
+        .env-flap-container { position: absolute; top: 0; left: 0; right: 0; height: 60%; z-index: 6; transform-origin: top center; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; }
+        .flap-silver { position: absolute; inset: 0; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .flap-paper { position: absolute; left: 2px; right: 2px; top: 2px; bottom: 0; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: inset 0 5px 20px rgba(255,255,255,0.8); }
+        .envelope-wrapper.is-opening .env-flap-container { transform: rotateX(180deg); }
 
-        .envelope-wrapper.is-open .wax-seal {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0);
-            pointer-events: none;
-        }
+        .wax-seal { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 85px; height: 85px; z-index: 10; transition: all 0.4s ease; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); }
+        .envelope-wrapper:hover .wax-seal { transform: translateX(-50%) scale(1.08); }
+        .envelope-wrapper.is-opening .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
 
-        /* --- Carta Expandida (Modal) --- */
-        .letter-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -40%) scale(0.85);
-            width: 90vw;
-            max-width: 650px;
-            max-height: 85vh;
-            background: radial-gradient(circle at center, var(--paper-main) 0%, var(--paper-shadow) 100%);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 40px rgba(212, 175, 55, 0.15);
-            border-radius: 4px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            overflow-y: auto;
-            cursor: pointer;
-        }
+        /* LA CARTA */
+        .reading-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.9); width: 90vw; max-width: 650px; max-height: 88vh; background: #ffffff; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1000; overflow-y: auto; overflow-x: hidden; box-shadow: 0 0 100px rgba(162, 28, 175, 0.15), 0 50px 100px rgba(0, 0, 0, 0.9); }
+        .reading-modal.is-visible { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
+        .reading-modal::-webkit-scrollbar { width: 6px; } .reading-modal::-webkit-scrollbar-track { background: transparent; } .reading-modal::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
 
-        .letter-modal.is-expanded {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
+        .letter-body { position: relative; padding: 70px 60px; min-height: 100%; background: #ffffff; }
+        
+        .letter-corner { position: absolute; width: 60px; height: 60px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231e103c' d='M30,15 A 35 35 0 0 0 75,70 A 45 45 0 0 1 30,15 Z'/%3E%3Cpath fill='%234c1d95' d='M80,10 L82,18 L90,20 L82,22 L80,30 L78,22 L70,20 L78,18 Z'/%3E%3Cpath fill='%236d28d9' d='M20,70 L21.5,76.5 L28,78 L21.5,79.5 L20,86 L18.5,79.5 L12,78 L18.5,76.5 Z'/%3E%3Ccircle cx='90' cy='45' r='2' fill='%234c1d95'/%3E%3Ccircle cx='50' cy='85' r='1.5' fill='%231e103c'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.9; }
+        .lc-tl { top: 15px; left: 15px; } .lc-tr { top: 15px; right: 15px; transform: scaleX(-1); } .lc-bl { bottom: 15px; left: 15px; transform: scaleY(-1); } .lc-br { bottom: 15px; right: 15px; transform: scale(-1, -1); }
 
-        /* Scrollbar elegante */
-        .letter-modal::-webkit-scrollbar {
-            width: 6px;
-        }
-        .letter-modal::-webkit-scrollbar-track {
-            background: transparent;
-            margin: 10px 0;
-        }
-        .letter-modal::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.4);
-            border-radius: 10px;
-        }
+        .close-btn { position: absolute; top: 30px; right: 35px; font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; color: var(--text-galaxy); cursor: pointer; text-transform: uppercase; transition: all 0.3s; z-index: 10; font-family: 'Cormorant Garamond', serif; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(30, 16, 60, 0.2); }
+        .close-btn:hover { background: var(--text-galaxy); color: #fff; }
 
-        /* Contenido de la Carta */
-        .letter-content {
-            position: relative;
-            padding: 50px 45px;
-            min-height: 100%;
-        }
+        .title-main { font-size: 4.8rem; text-align: center; margin: 10px 0 0 0; }
+        .divider-svg { display: block; margin: 0 auto 35px auto; width: 150px; opacity: 0.9; }
+        
+        .prose { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.85; color: var(--text-body); margin-bottom: 2.2rem; text-align: justify; letter-spacing: 0.2px; font-weight: 500; }
+        .dropcap { float: left; font-size: 6.5rem; line-height: 0.8; padding: 5px 15px 0 0; margin: 0; font-family: 'Great Vibes', cursive; }
+        .highlight-quote { display: block; font-size: 1.5rem; font-style: italic; color: var(--text-highlight); text-align: center; margin: 40px 0; padding: 30px 25px; border-top: 1px solid rgba(76, 29, 149, 0.2); border-bottom: 1px solid rgba(76, 29, 149, 0.2); background: linear-gradient(to right, transparent, rgba(76, 29, 149, 0.05), transparent); }
+        .signature { text-align: right; font-size: 3.8rem; margin-top: 50px; padding-right: 20px; }
 
-        /* Borde interior dorado */
-        .letter-content::before {
-            content: '';
-            position: absolute;
-            inset: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            pointer-events: none;
+        @media (max-width: 768px) {
+            .page-corner { width: 70px; height: 70px; }
+            .letter-corner { width: 45px; height: 45px; }
+            .envelope-wrapper { width: 85vw; height: 55vw; }
+            .letter-body { padding: 60px 25px; } .title-main { font-size: 3.8rem; } .prose { font-size: 1.25rem; } .dropcap { font-size: 5rem; } .signature { font-size: 3.2rem; } .close-btn { top: 25px; right: 25px; font-size: 0.8rem; }
+            .planet-1 { width: 65vw; max-width: none; top: -10%; left: -20%; }
+            .planet-2 { width: 50vw; max-width: none; bottom: 5%; right: -15%; }
+            .planet-3 { width: 35vw; top: 10%; }
         }
-
-        .close-hint {
-            position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 1.5rem;
-            color: rgba(212, 175, 55, 0.6);
-            font-family: sans-serif;
-            font-weight: 300;
-            pointer-events: none;
-            transition: color 0.3s;
-        }
-
-        .letter-modal:hover .close-hint {
-            color: rgba(212, 175, 55, 1);
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.8rem;
-            text-align: center;
-            color: var(--text-wine);
-            margin-bottom: 30px;
-            font-weight: normal;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-            line-height: 1.2;
-        }
-
-        p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .dropcap {
-            float: left;
-            font-size: 4.2rem;
-            line-height: 0.8;
-            padding-right: 8px;
-            padding-top: 6px;
-            font-family: 'Great Vibes', cursive;
-            color: var(--gold-rich);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        em {
-            font-style: italic;
-            font-weight: 600;
-            color: var(--text-wine);
-        }
-
-        .signature {
-            text-align: right;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
-            color: var(--text-wine);
-            margin-top: 40px;
-            margin-bottom: 0;
-            line-height: 1.2;
-        }
-
-        /* --- Responsividad --- */
-        @media (max-width: 600px) {
-            .letter-content {
-                padding: 40px 25px;
-            }
-            h1 { font-size: 3rem; margin-bottom: 20px; }
-            p { font-size: 1rem; line-height: 1.6; }
-            .dropcap { font-size: 3.5rem; }
-            .signature { font-size: 2.2rem; margin-top: 30px; }
-            .wax-seal { width: 60px; height: 60px; }
-            .silver-heart { width: 35px; height: 35px; }
-            .seal-letter { font-size: 1.4rem; }
-            .envelope-wrapper { aspect-ratio: 1.4; }
-        }
-
     </style>
 </head>
 <body>
-
-    <!-- Definición de Gradientes SVG y Formas -->
-    <svg class="svg-defs">
+    <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
         <defs>
-            <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="20%" stop-color="#e6e6e6"/>
-                <stop offset="50%" stop-color="#b3b3b3"/>
-                <stop offset="80%" stop-color="#e6e6e6"/>
-                <stop offset="100%" stop-color="#808080"/>
+            <!-- Forma base del planeta de corazón -->
+            <path id="h-path" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            
+            <clipPath id="h-clip">
+                <use href="#h-path"/>
+            </clipPath>
+
+            <!-- Sombra de esfera 3D -->
+            <radialGradient id="h-shadow" cx="30%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+                <stop offset="20%" stop-color="#ffffff" stop-opacity="0.05"/>
+                <stop offset="55%" stop-color="#000000" stop-opacity="0.65"/>
+                <stop offset="85%" stop-color="#000000" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+            </radialGradient>
+
+            <!-- ==========================================
+                 PLANETA 1: LA TIERRA (Mar y Tierra Verde)
+                 ========================================== -->
+            
+            <!-- Filtro que genera manchas de tierra verde vibrante -->
+            <filter id="earth-land" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="4" result="noise"/>
+                <feColorMatrix type="matrix" values="
+                    0 0 0 0 0.133
+                    0 0 0 0 0.772
+                    0 0 0 0 0.368
+                    15 0 0 0 -6.5
+                " in="noise"/>
+            </filter>
+
+            <!-- Filtro que genera nubes blancas sutiles -->
+            <filter id="earth-clouds" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise"/>
+                <feColorMatrix type="matrix" values="
+                    0 0 0 0 1
+                    0 0 0 0 1
+                    0 0 0 0 1
+                    8 0 0 0 -4.5
+                " in="noise"/>
+            </filter>
+
+            <g id="planet-earth">
+                <g clip-path="url(#h-clip)">
+                    <!-- Océano azul de fondo -->
+                    <rect x="-5" y="-5" width="34" height="34" fill="#0ea5e9"/>
+                    
+                    <!-- Capa de tierra verde superpuesta por el filtro -->
+                    <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-land)"/>
+                    
+                    <!-- Capa de nubes sutil superpuesta por el filtro -->
+                    <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-clouds)" opacity="0.6"/>
+                    
+                    <!-- Relieve 3D -->
+                    <use href="#h-path" fill="url(#h-shadow)"/>
+                </g>
+            </g>
+
+            <!-- ==========================================
+                 PLANETA 2: JÚPITER
+                 ========================================== -->
+            <linearGradient id="jupiter-colors" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#8a5a3a"/>
+                <stop offset="15%" stop-color="#d4a373"/>
+                <stop offset="25%" stop-color="#faedcd"/>
+                <stop offset="40%" stop-color="#bc6c25"/>
+                <stop offset="55%" stop-color="#e9edc9"/>
+                <stop offset="70%" stop-color="#d4a373"/>
+                <stop offset="85%" stop-color="#faedcd"/>
+                <stop offset="100%" stop-color="#8a5a3a"/>
             </linearGradient>
-            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffd700"/>
-                <stop offset="100%" stop-color="#aa8c2c"/>
+            
+            <filter id="jupiter-winds" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.005 0.35" numOctaves="6" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+
+            <g id="planet-jupiter">
+                <g clip-path="url(#h-clip)">
+                    <rect x="-5" y="-5" width="34" height="34" fill="url(#jupiter-colors)" filter="url(#jupiter-winds)"/>
+                    <use href="#h-path" fill="url(#h-shadow)"/>
+                </g>
+            </g>
+
+            <!-- ==========================================
+                 PLANETA 3: MARTE
+                 ========================================== -->
+            <filter id="mars-surface" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="7" result="noise"/>
+                <feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise"/>
+                <feDiffuseLighting in="alphaNoise" surfaceScale="2.5" diffuseConstant="1.6" lighting-color="#fca5a5" result="light">
+                    <fePointLight x="0" y="0" z="15"/>
+                </feDiffuseLighting>
+                <feBlend mode="multiply" in="SourceGraphic" in2="light"/>
+            </filter>
+
+            <g id="planet-mars">
+                <g clip-path="url(#h-clip)">
+                    <rect x="-5" y="-5" width="34" height="34" fill="#b91c1c" filter="url(#mars-surface)"/>
+                    <use href="#h-path" fill="url(#h-shadow)"/>
+                </g>
+            </g>
+
+            <!-- Sello y Gradiente -->
+            <filter id="wax-3d" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+                <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1.2" specularExponent="20" lighting-color="#ffffff" result="specOut">
+                    <fePointLight x="-20" y="-30" z="80"/>
+                </feSpecularLighting>
+                <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+                <feOffset dx="1" dy="4" in="blur" result="dropShadow"/>
+                <feFlood flood-color="#000" flood-opacity="0.4" result="shadowColor"/>
+                <feComposite in="shadowColor" in2="dropShadow" operator="in" result="shadow"/>
+                <feMerge> <feMergeNode in="shadow"/> <feMergeNode in="SourceGraphic"/> <feMergeNode in="specOut"/> </feMerge>
+            </filter>
+            
+            <linearGradient id="cosmic-svg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1e103c"/>
+                <stop offset="50%" stop-color="#4c1d95"/>
+                <stop offset="100%" stop-color="#1e103c"/>
             </linearGradient>
         </defs>
     </svg>
 
-    <!-- Iluminación Ambiental -->
-    <div class="ambient-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <div id="starfield"></div>
+
+    <div class="heart-planet planet-1">
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
+            <use href="#planet-earth"/>
+        </svg>
+    </div>
+    <div class="heart-planet planet-2">
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
+            <use href="#planet-jupiter"/>
+        </svg>
+    </div>
+    <div class="heart-planet planet-3">
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
+            <use href="#planet-mars"/>
+        </svg>
     </div>
 
-    <!-- Marco Decorativo -->
-    <div class="frame">
-        <div class="corner corner-tl"><div class="corner-inner"></div></div>
-        <div class="corner corner-tr"><div class="corner-inner"></div></div>
-        <div class="corner corner-bl"><div class="corner-inner"></div></div>
-        <div class="corner corner-br"><div class="corner-inner"></div></div>
+    <div class="page-frame">
+        <div class="page-corner pc-tl"></div>
+        <div class="page-corner pc-tr"></div>
+        <div class="page-corner pc-bl"></div>
+        <div class="page-corner pc-br"></div>
     </div>
 
-    <!-- Contenedor de Partículas -->
-    <div id="particles-container"></div>
-
-    <!-- Escena Principal -->
-    <div class="scene">
+    <div class="stage" id="stage">
         <div class="envelope-wrapper" id="envelope">
-            <!-- Capas traseras -->
             <div class="env-back"></div>
-            
-            <!-- Carta Falsa (la que asoma) -->
-            <div class="letter-stub" id="letter-stub">
-                <div style="text-align: center; font-family: 'Great Vibes'; color: rgba(90,11,24,0.4); font-size: 2rem; margin-top: 10px;">Feliz Cumpleaños</div>
-                <div class="letter-stub-lines"></div>
-                <div class="letter-stub-lines"></div>
-                <div class="letter-stub-lines"></div>
+            <div class="letter-preview">
+                <div class="preview-title text-cosmic">Feliz Cumpleaños</div>
             </div>
-
-            <!-- Solapas frontales -->
-            <div class="env-front-left"></div>
-            <div class="env-front-right"></div>
-            <div class="env-front-bottom"></div>
-
-            <!-- Solapa Superior con Sello -->
-            <div class="env-flap-top-wrapper" id="flap-top">
-                <div class="env-flap-shape"></div>
-                
-                <div class="wax-seal" id="wax-seal">
-                    <svg class="silver-heart" viewBox="0 0 24 24" fill="url(#silverGradient)">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            <div class="env-silver-lining"></div>
+            <div class="env-front"></div>
+            <div class="env-flap-container" id="flap">
+                <div class="flap-silver"></div>
+                <div class="flap-paper"></div>
+                <div class="wax-seal">
+                    <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; overflow: visible;">
+                        <g filter="url(#wax-3d)">
+                            <path d="M 60 5 C 80 2, 105 15, 112 40 C 118 65, 100 95, 75 110 C 45 120, 10 100, 5 70 C 0 40, 20 12, 60 5 Z" fill="#94a3b8" />
+                            <path d="M 60 15 C 75 14, 98 25, 100 50 C 102 75, 85 98, 60 100 C 35 102, 18 85, 15 60 C 12 35, 40 16, 60 15 Z" fill="#64748b" />
+                            <circle cx="59" cy="59" r="38" fill="#475569" />
+                            <text x="60" y="80" font-family="'Great Vibes', cursive" font-size="55" fill="#f8fafc" text-anchor="middle" filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.8))">E</text>
+                        </g>
                     </svg>
-                    <span class="seal-letter">E</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Carta Modal Expandida -->
-    <div class="letter-modal" id="letter-modal">
-        <div class="letter-content">
-            <div class="close-hint">✕</div>
-            <h1>Feliz Cumpleaños</h1>
-            <p><span class="dropcap">N</span>o es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy, en tu día especial, sentí la necesidad de detenerme a explicarte el motivo.</p>
-            <p>Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, la respuesta es clara: <em>Porque en tus ojos encontré la dirección correcta para mi vida.</em></p>
-            <p>Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión, en realidad tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida, y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
-            <p>Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación.</p>
-            <p class="signature">Con amor,<br>Daniel</p>
+    <div class="reading-modal" id="reading-view">
+        <div class="letter-body">
+            <div class="letter-corner lc-tl"></div>
+            <div class="letter-corner lc-tr"></div>
+            <div class="letter-corner lc-bl"></div>
+            <div class="letter-corner lc-br"></div>
+            <div class="close-btn" id="close-btn">Doblar Carta</div>
+            
+            <h1 class="title-main text-cosmic">Feliz Cumpleaños</h1>
+            <svg class="divider-svg" viewBox="0 0 200 30">
+                <path fill="url(#cosmic-svg-grad)" d="M100,15 C80,0 60,15 0,15 C60,15 80,30 100,15 C120,0 140,15 200,15 C140,15 120,30 100,15 Z"/>
+                <circle cx="100" cy="15" r="4" fill="#6d28d9"/>
+            </svg>
+            
+            <p class="prose"><span class="dropcap text-cosmic">N</span>o es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy, en tu día especial, sentí la necesidad de detenerme a explicarte el motivo.</p>
+            <span class="highlight-quote">Porque en tus ojos encontré la dirección correcta para mi vida.</span>
+            <p class="prose">Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión. En realidad, tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida, y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
+            <p class="prose">Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación. Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, esta es mi respuesta sincera.</p>
+            
+            <p class="signature text-cosmic">Con devoción,<br>Daniel</p>
         </div>
     </div>
 
-    <!-- Lógica de Animación e Interactividad -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const envelope = document.getElementById('envelope');
-            const seal = document.getElementById('wax-seal');
-            const letterStub = document.getElementById('letter-stub');
-            const letterModal = document.getElementById('letter-modal');
-            const particlesContainer = document.getElementById('particles-container');
-            
+            const stage = document.getElementById('stage');
+            const readingView = document.getElementById('reading-view');
+            const closeBtn = document.getElementById('close-btn');
+            const starfield = document.getElementById('starfield');
             let isAnimating = false;
 
-            // ---- Lógica de Apertura y Cierre ----
-            seal.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (isAnimating) return;
-                isAnimating = true;
-
-                // 1. Abrir solapa
-                envelope.classList.add('is-open');
-
-                // 2. Deslizar carta hacia arriba
+            envelope.addEventListener('click', () => {
+                if (isAnimating) return; isAnimating = true;
+                envelope.classList.add('is-opening');
                 setTimeout(() => {
-                    letterStub.classList.add('is-sliding-out');
-                }, 500);
-
-                // 3. Expandir modal en el centro
-                setTimeout(() => {
-                    letterStub.style.opacity = '0';
-                    letterModal.classList.add('is-expanded');
+                    stage.classList.add('is-background');
+                    readingView.classList.add('is-visible');
                     isAnimating = false;
-                }, 1300);
+                }, 1000); 
             });
 
-            letterModal.addEventListener('click', () => {
-                if (isAnimating) return;
-                isAnimating = true;
-
-                // 1. Cerrar modal
-                letterModal.classList.remove('is-expanded');
-
-                // 2. Deslizar carta hacia adentro
+            closeBtn.addEventListener('click', () => {
+                if (isAnimating) return; isAnimating = true;
+                readingView.classList.remove('is-visible');
+                stage.classList.remove('is-background');
                 setTimeout(() => {
-                    letterStub.style.opacity = '1';
-                    letterStub.classList.remove('is-sliding-out');
-                }, 600);
-
-                // 3. Cerrar solapa
-                setTimeout(() => {
-                    envelope.classList.remove('is-open');
+                    envelope.classList.remove('is-opening');
                     isAnimating = false;
-                }, 1400);
+                }, 900);
             });
 
-
-            // ---- Generador de Partículas (Estrellas, Corazones, Globos, Mariposas) ----
-            function createParticles() {
-                const colorsSVG = ['url(#goldGradient)', 'url(#silverGradient)', '#ffb6c1', '#ffd700'];
-                
-                // Estrellas (100)
-                for (let i = 0; i < 100; i++) {
-                    const star = document.createElement('div');
+            const createStars = () => {
+                const starCount = window.innerWidth < 768 ? 120 : 280;
+                for (let i = 0; i < starCount; i++) {
+                    let star = document.createElement('div');
                     star.className = 'star';
-                    star.style.width = Math.random() * 3 + 1 + 'px';
-                    star.style.height = star.style.width;
-                    star.style.top = Math.random() * 100 + 'vh';
-                    star.style.left = Math.random() * 100 + 'vw';
-                    star.style.animationDuration = Math.random() * 3 + 2 + 's';
-                    star.style.animationDelay = Math.random() * 5 + 's';
-                    particlesContainer.appendChild(star);
-                }
-
-                // Corazones (15)
-                for (let i = 0; i < 15; i++) {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart-float';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = Math.random() * 10 + 10 + 's';
-                    heart.style.animationDelay = Math.random() * 15 + 's';
-                    const scale = Math.random() * 0.8 + 0.5;
-                    heart.style.transform = `scale(${scale}) rotate(-45deg)`;
-                    particlesContainer.appendChild(heart);
-                }
-
-                // Globos delicados (6)
-                for (let i = 0; i < 6; i++) {
-                    const balloon = document.createElement('div');
-                    balloon.className = 'balloon';
-                    balloon.style.left = Math.random() * 90 + 5 + 'vw';
-                    balloon.style.animationDuration = Math.random() * 15 + 15 + 's';
-                    balloon.style.animationDelay = Math.random() * 20 + 's';
-                    particlesContainer.appendChild(balloon);
-                }
-
-                // Mariposas SVG (8)
-                const butterflySVG = `
-                    <svg viewBox="0 0 24 24" fill="COLOR">
-                        <path d="M12,10 C8,0 0,2 0,10 C0,18 8,24 12,16 C16,24 24,18 24,10 C24,2 16,0 12,10 Z"/>
-                    </svg>
-                `;
-                for (let i = 0; i < 8; i++) {
-                    const bf = document.createElement('div');
-                    bf.className = 'butterfly';
-                    bf.style.top = Math.random() * 100 + 'vh';
-                    bf.style.animationDuration = Math.random() * 15 + 15 + 's';
-                    bf.style.animationDelay = Math.random() * 10 + 's';
+                    let size = Math.random() > 0.8 ? (Math.random() * 2.5 + 1.5) : (Math.random() * 1.5 + 0.5);
                     
-                    const inner = document.createElement('div');
-                    inner.className = 'butterfly-inner';
-                    inner.innerHTML = butterflySVG.replace('COLOR', colorsSVG[Math.floor(Math.random() * colorsSVG.length)]);
+                    star.style.width = `${size}px`; 
+                    star.style.height = `${size}px`;
+                    star.style.left = `${Math.random() * 100}vw`;
+                    star.style.top = `${Math.random() * 100}vh`;
+                    star.style.setProperty('--twinkle-dur', `${Math.random() * 3 + 1.5}s`);
+                    star.style.animationDelay = `${Math.random() * 5}s`;
                     
-                    const scale = Math.random() * 0.6 + 0.4;
-                    inner.style.transform = `scale(${scale})`;
-                    inner.style.animationDelay = Math.random() + 's';
+                    const colorChance = Math.random();
+                    if (colorChance > 0.9) star.style.backgroundColor = '#bae6fd';
+                    else if (colorChance > 0.8) star.style.backgroundColor = '#fbcfe8'; 
                     
-                    bf.appendChild(inner);
-                    particlesContainer.appendChild(bf);
+                    starfield.appendChild(star);
                 }
-            }
-
-            createParticles();
+            };
+            createStars();
         });
     </script>
 </body>
