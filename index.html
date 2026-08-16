@@ -11,7 +11,6 @@
 
     <style>
         :root {
-            /* CORRECCIÓN: Se eliminó el "var()" al declarar la variable para que funcione correctamente */
             --silver-gradient: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%);
             --paper: #ffffff;
             --text-body: #000000;
@@ -32,18 +31,14 @@
             display: flex; justify-content: center; align-items: center; perspective: 2000px;
         }
 
-        /* OPTIMIZACIÓN: Se usa para el canvas que dibujará las estrellas por hardware */
         #starfield { position: fixed; inset: 0; z-index: 1; pointer-events: none; width: 100vw; height: 100vh; }
 
-        /* PLANETAS REALISTAS Y SUS ÓRBITAS */
         .heart-planet {
             position: fixed; z-index: 2; pointer-events: none;
             animation: orbitPlanet 40s linear infinite;
-            /* OPTIMIZACIÓN: Aceleración GPU */
             will-change: transform; 
         }
         @keyframes orbitPlanet {
-            /* OPTIMIZACIÓN: translate3d en lugar de translateY para forzar renderizado 3D en GPU */
             0% { transform: translate3d(0, 0, 0) rotate(0deg); }
             50% { transform: translate3d(0, -25px, 0) rotate(4deg); }
             100% { transform: translate3d(0, 0, 0) rotate(0deg); }
@@ -63,7 +58,6 @@
 
         .text-cosmic { font-family: 'Great Vibes', cursive; color: var(--text-galaxy); text-shadow: 1px 1px 0px rgba(0,0,0,0.05); line-height: 1.4; padding: 10px; }
 
-        /* EL SOBRE */
         .stage { position: relative; z-index: 20; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, filter, opacity; }
         .stage.is-background { filter: blur(10px); transform: scale3d(0.85, 0.85, 1) translate3d(0, 50px, 0); pointer-events: none; opacity: 0; }
 
@@ -76,20 +70,47 @@
 
         .env-front { position: absolute; inset: 2px; z-index: 4; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 50% 49.5%, 100% 0, 100% 100%, 0 100%); filter: drop-shadow(0 -3px 10px rgba(0,0,0,0.15)); }
 
-        .letter-preview { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; align-items: center; padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; will-change: transform; }
+        .letter-preview { 
+            position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; 
+            background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+            z-index: 2; display: flex; flex-direction: column; align-items: center; 
+            padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; 
+            will-change: transform;
+            transition: transform 0.6s ease-in-out 0s; 
+        }
+        
         .preview-title { font-size: 3.2rem; margin: 0; }
-        .envelope-wrapper.is-opening .letter-preview { transform: translate3d(0, -75%, 0) scale(0.95); }
+        
+        .envelope-wrapper.is-opening .letter-preview { 
+            transform: translate3d(0, -80%, 0) scale(0.95); 
+            transition: transform 0.6s ease-in-out 0.5s; 
+        }
 
-        .env-flap-container { position: absolute; top: 0; left: 0; right: 0; height: 60%; z-index: 6; transform-origin: top center; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; will-change: transform; }
+        .env-flap-container { 
+            position: absolute; top: 0; left: 0; right: 0; height: 60%; 
+            z-index: 6; transform-origin: top center; transform-style: preserve-3d; will-change: transform; 
+            transition: transform 0.5s ease-in-out 0.6s, z-index 0s 0.6s; 
+        }
         .flap-silver { position: absolute; inset: 0; background: var(--silver-gradient); clip-path: polygon(0 0, 100% 0, 50% 100%); }
         .flap-paper { position: absolute; left: 2px; right: 2px; top: 2px; bottom: 0; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: inset 0 5px 20px rgba(255,255,255,0.8); }
-        .envelope-wrapper.is-opening .env-flap-container { transform: rotateX(180deg); }
+        
+        .envelope-wrapper.is-opening .env-flap-container { 
+            transform: rotateX(180deg); 
+            z-index: 1; 
+            transition: transform 0.5s ease-in-out 0s, z-index 0s 0.25s; 
+        }
 
-        .wax-seal { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 85px; height: 85px; z-index: 10; transition: all 0.4s ease; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); }
+        .wax-seal { 
+            position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); 
+            width: 85px; height: 85px; z-index: 10; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); 
+            transition: all 0.4s ease; 
+        }
         .envelope-wrapper:hover .wax-seal { transform: translateX(-50%) scale(1.08); }
-        .envelope-wrapper.is-opening .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
+        .envelope-wrapper.is-opening .wax-seal { 
+            opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; 
+            transition: all 0.3s ease 0s; 
+        }
 
-        /* LA CARTA */
         .reading-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.9); width: 90vw; max-width: 650px; max-height: 88vh; background: #ffffff; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1000; overflow-y: auto; overflow-x: hidden; box-shadow: 0 0 100px rgba(162, 28, 175, 0.15), 0 50px 100px rgba(0, 0, 0, 0.9); will-change: transform, opacity; }
         .reading-modal.is-visible { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
         .reading-modal::-webkit-scrollbar { width: 6px; } .reading-modal::-webkit-scrollbar-track { background: transparent; } .reading-modal::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
@@ -106,7 +127,6 @@
         .divider-svg { display: block; margin: 0 auto 35px auto; width: 150px; opacity: 0.9; }
         
         .prose { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.85; color: var(--text-body); margin-bottom: 2.2rem; text-align: justify; letter-spacing: 0.2px; font-weight: 500; }
-        .dropcap { float: left; font-size: 6.5rem; line-height: 0.8; padding: 5px 15px 0 0; margin: 0; font-family: 'Great Vibes', cursive; }
         .highlight-quote { display: block; font-size: 1.5rem; font-style: italic; color: var(--text-highlight); text-align: center; margin: 40px 0; padding: 30px 25px; border-top: 1px solid rgba(76, 29, 149, 0.2); border-bottom: 1px solid rgba(76, 29, 149, 0.2); background: linear-gradient(to right, transparent, rgba(76, 29, 149, 0.05), transparent); }
         .signature { text-align: right; font-size: 3.8rem; margin-top: 50px; padding-right: 20px; }
 
@@ -114,7 +134,7 @@
             .page-corner { width: 70px; height: 70px; }
             .letter-corner { width: 45px; height: 45px; }
             .envelope-wrapper { width: 85vw; height: 55vw; }
-            .letter-body { padding: 60px 25px; } .title-main { font-size: 3.8rem; } .prose { font-size: 1.25rem; } .dropcap { font-size: 5rem; } .signature { font-size: 3.2rem; } .close-btn { top: 25px; right: 25px; font-size: 0.8rem; }
+            .letter-body { padding: 60px 25px; } .title-main { font-size: 3.8rem; } .prose { font-size: 1.25rem; } .signature { font-size: 3.2rem; } .close-btn { top: 25px; right: 25px; font-size: 0.8rem; }
             .planet-1 { width: 65vw; max-width: none; top: -10%; left: -20%; }
             .planet-2 { width: 50vw; max-width: none; bottom: 5%; right: -15%; }
             .planet-3 { width: 35vw; top: 10%; }
@@ -122,7 +142,6 @@
     </style>
 </head>
 <body>
-    <!-- Todos tus filtros y SVGs intactos tal como fueron diseñados -->
     <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
         <defs>
             <path id="h-path" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -203,23 +222,16 @@
         </defs>
     </svg>
 
-    <!-- OPTIMIZACIÓN: Se usa un Canvas en lugar de un Div que inyectaba 280 etiquetas -->
     <canvas id="starfield"></canvas>
 
     <div class="heart-planet planet-1">
-        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-earth"/>
-        </svg>
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;"><use href="#planet-earth"/></svg>
     </div>
     <div class="heart-planet planet-2">
-        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-jupiter"/>
-        </svg>
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;"><use href="#planet-jupiter"/></svg>
     </div>
     <div class="heart-planet planet-3">
-        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-mars"/>
-        </svg>
+        <svg viewBox="0 0 24 24" style="width:100%; height:100%;"><use href="#planet-mars"/></svg>
     </div>
 
     <div class="page-frame">
@@ -232,9 +244,11 @@
     <div class="stage" id="stage">
         <div class="envelope-wrapper" id="envelope">
             <div class="env-back"></div>
+            
             <div class="letter-preview">
                 <div class="preview-title text-cosmic">Feliz Cumpleaños</div>
             </div>
+            
             <div class="env-silver-lining"></div>
             <div class="env-front"></div>
             <div class="env-flap-container" id="flap">
@@ -268,10 +282,13 @@
                 <circle cx="100" cy="15" r="4" fill="#6d28d9"/>
             </svg>
             
-            <p class="prose"><span class="dropcap text-cosmic">N</span>o es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy, en tu día especial, sentí la necesidad de detenerme a explicarte el motivo.</p>
+            <p class="prose">No es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy sentí la necesidad de detenerme a explicarte el motivo. Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, la respuesta es clara:</p>
+            
             <span class="highlight-quote">Porque en tus ojos encontré la dirección correcta para mi vida.</span>
-            <p class="prose">Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión. En realidad, tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida, y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
-            <p class="prose">Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación. Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, esta es mi respuesta sincera.</p>
+            
+            <p class="prose">Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión, en realidad tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
+            
+            <p class="prose">Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación.</p>
             
             <p class="signature text-cosmic">Con devoción,<br>Daniel</p>
         </div>
@@ -284,7 +301,6 @@
             const readingView = document.getElementById('reading-view');
             const closeBtn = document.getElementById('close-btn');
             
-            // OPTIMIZACIÓN: Motor de renderizado en Canvas para las estrellas
             const canvas = document.getElementById('starfield');
             const ctx = canvas.getContext('2d', { alpha: true });
             let isAnimating = false;
@@ -310,7 +326,6 @@
             const drawStars = (time) => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (let star of stars) {
-                    // Cálculo matemático suave para imitar la animación CSS original de "twinkle"
                     const twinkle = (Math.sin(time * star.twinkleSpeed + star.timeOffset) + 1) / 2;
                     const currentSize = star.baseSize * (0.5 + 0.7 * twinkle); 
                     const currentOpacity = 0.1 + 0.9 * twinkle;
@@ -331,21 +346,26 @@
             envelope.addEventListener('click', () => {
                 if (isAnimating) return; isAnimating = true;
                 envelope.classList.add('is-opening');
+                
                 setTimeout(() => {
                     stage.classList.add('is-background');
                     readingView.classList.add('is-visible');
-                    isAnimating = false;
-                }, 1000); 
+                    setTimeout(() => { isAnimating = false; }, 1000); 
+                }, 1100); 
             });
 
             closeBtn.addEventListener('click', () => {
                 if (isAnimating) return; isAnimating = true;
                 readingView.classList.remove('is-visible');
                 stage.classList.remove('is-background');
+                
                 setTimeout(() => {
                     envelope.classList.remove('is-opening');
-                    isAnimating = false;
-                }, 900);
+                    
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 1200);
+                }, 800);
             });
         });
     </script>
