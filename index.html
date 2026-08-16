@@ -31,7 +31,7 @@
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0) 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 70%);
             z-index: 1;
             animation: breathe 6s infinite alternate ease-in-out;
             pointer-events: none;
@@ -41,6 +41,22 @@
             0% { transform: scale(0.9); opacity: 0.5; }
             100% { transform: scale(1.4); opacity: 0.9; }
         }
+
+        /* --- MARCOS / ESQUINAS DECORATIVAS PARA EL FONDO --- */
+        .corner-ornament {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.6;
+            border: 2px solid rgba(223, 195, 138, 0.3);
+        }
+
+        .corner-top-left { top: 25px; left: 25px; border-right: none; border-bottom: none; }
+        .corner-top-right { top: 25px; right: 25px; border-left: none; border-bottom: none; }
+        .corner-bottom-left { bottom: 25px; left: 25px; border-right: none; border-top: none; }
+        .corner-bottom-right { bottom: 25px; right: 25px; border-left: none; border-top: none; }
 
         /* --- CAPA DE EFECTOS DE FONDO (Pantalla Completa) --- */
         .background-fx-layer {
@@ -56,9 +72,9 @@
         /* Estrellitas centelleantes abundantes */
         .sparkle {
             position: absolute;
-            color: #cbd5e1;
+            color: #fef08a;
             opacity: 0;
-            text-shadow: 0 0 12px rgba(255,255,255,0.9);
+            text-shadow: 0 0 12px rgba(254, 240, 138, 0.9);
             animation: twinkle 4s ease-in-out infinite;
         }
 
@@ -67,7 +83,7 @@
             50% { opacity: 0.95; transform: scale(1.5) rotate(45deg); }
         }
 
-        /* --- CORAZONES PLATEADOS FLOTANTES (MUY GRANDES) --- */
+        /* --- CORAZONES PLATEADOS/DORADOS FLOTANTES GRANDES --- */
         .silver-heart-float { 
             position: absolute; 
             background-color: #cbd5e1; 
@@ -100,69 +116,75 @@
             100% { transform: translateY(-25vh) rotate(45deg) scale(1.4); opacity: 0; } 
         }
 
-        /* --- MARIPOSAS 3D MÁGICAS (MÁS GRANDES Y VISTOSAS) --- */
+        /* --- MARIPOSAS MULTICOLOR VOLANDO POR TODOS LADOS --- */
         .butterfly-container {
             position: absolute;
-            bottom: -70px;
-            animation: fly 16s linear infinite;
+            animation: flyRandom linear infinite;
         }
 
         .butterfly {
             position: relative;
-            width: 65px; 
-            height: 65px;
+            width: 60px; 
+            height: 60px;
             transform-style: preserve-3d;
-            transform: rotateX(50deg) rotateZ(20deg);
+            transform: rotateX(40deg) rotateZ(15deg);
         }
 
         .wing {
             position: absolute;
             top: 0;
-            width: 32px; 
-            height: 65px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(148, 163, 184, 0.7));
+            width: 30px; 
+            height: 60px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
             opacity: 0.95;
         }
+
+        /* Variaciones de color que combinan con la escena (Rojos románticos, dorados y plateados) */
+        .b-gold .wing { background: linear-gradient(135deg, rgba(254,240,138,0.95), rgba(212,175,55,0.7)); }
+        .b-rose .wing { background: linear-gradient(135deg, rgba(253,164,175,0.95), rgba(225,29,72,0.7)); }
+        .b-silver .wing { background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(148,163,184,0.7)); }
 
         .left-wing {
             left: 0;
             border-radius: 100% 0% 100% 0%;
             transform-origin: right center;
-            animation: flapLeft 0.22s infinite alternate ease-in-out;
+            animation: flapLeft 0.2s infinite alternate ease-in-out;
         }
 
         .right-wing {
             right: 0;
             border-radius: 0% 100% 0% 100%;
             transform-origin: left center;
-            animation: flapRight 0.22s infinite alternate ease-in-out;
+            animation: flapRight 0.2s infinite alternate ease-in-out;
         }
 
         @keyframes flapLeft {
             0% { transform: rotateY(10deg); }
-            100% { transform: rotateY(70deg); }
+            100% { transform: rotateY(75deg); }
         }
 
         @keyframes flapRight {
             0% { transform: rotateY(-10deg); }
-            100% { transform: rotateY(-70deg); }
+            100% { transform: rotateY(-75deg); }
         }
 
-        @keyframes fly {
+        @keyframes flyRandom {
             0% { transform: translate(0, 110vh) scale(0.6); opacity: 0; }
-            15% { opacity: 0.95; }
-            85% { opacity: 0.95; }
-            100% { transform: translate(30vw, -25vh) scale(1.5); opacity: 0; }
+            15% { opacity: 0.9; }
+            50% { transform: translate(40vw, 40vh) scale(1.1); }
+            85% { opacity: 0.9; }
+            100% { transform: translate(-20vw, -20vh) scale(1.4); opacity: 0; }
         }
 
-        .b-1 { left: 6%; animation-duration: 13s; animation-delay: 0s; }
-        .b-2 { left: 28%; animation-duration: 17s; animation-delay: 4s; }
-        .b-3 { left: 65%; animation-duration: 15s; animation-delay: 2s; }
-        .b-4 { left: 86%; animation-duration: 18s; animation-delay: 6s; }
-        .b-5 { left: 45%; animation-duration: 14s; animation-delay: 8s; }
+        /* Trayectorias repartidas por toda la pantalla */
+        .b-1 { left: 5%; top: 80%; animation-duration: 14s; animation-delay: 0s; }
+        .b-2 { left: 75%; top: 90%; animation-duration: 18s; animation-delay: 3s; }
+        .b-3 { left: 40%; top: 85%; animation-duration: 15s; animation-delay: 6s; }
+        .b-4 { left: 85%; top: 40%; animation-duration: 16s; animation-delay: 2s; }
+        .b-5 { left: 10%; top: 50%; animation-duration: 13s; animation-delay: 5s; }
+        .b-6 { left: 55%; top: 20%; animation-duration: 17s; animation-delay: 1s; }
 
-        /* --- GLOBOS FLOTANTES ROMÁNTICOS --- */
+        /* --- GLOBOS FLOTANTES --- */
         .balloon-container {
             position: absolute;
             bottom: -100px;
@@ -218,7 +240,7 @@
             height: 140px;
             z-index: 5;
             pointer-events: none;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         .floral-corner.left { left: 20px; transform: scaleX(-1); }
@@ -239,7 +261,6 @@
             box-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
 
-        /* Pétalos simulados con sombras e hijos */
         .white-flower::before {
             content: "";
             position: absolute;
@@ -248,7 +269,6 @@
             border: 2px dotted rgba(255,255,255,0.7);
         }
 
-        /* Posicionamiento del ramillete izquierdo/derecho */
         .wf-1 { bottom: 10px; left: 10px; width: 38px; height: 38px; }
         .wf-2 { bottom: 35px; left: 35px; }
         .wf-3 { bottom: 15px; left: 55px; width: 30px; height: 30px; }
@@ -487,6 +507,12 @@
     <div class="glow-orb" style="width: 600px; height: 600px; top: -100px; left: -100px; animation-duration: 6s;"></div>
     <div class="glow-orb" style="width: 700px; height: 700px; bottom: -100px; right: -100px; animation-delay: 2s; animation-duration: 8s;"></div>
     
+    <!-- ESQUINAS DECORATIVAS PARA ENMARCAR EL FONDO -->
+    <div class="corner-ornament corner-top-left"></div>
+    <div class="corner-ornament corner-top-right"></div>
+    <div class="corner-ornament corner-bottom-left"></div>
+    <div class="corner-ornament corner-bottom-right"></div>
+
     <!-- FLORES BLANCAS ESTÁTICAS EN LAS ESQUINAS INFERIORES -->
     <div class="floral-corner left">
         <div class="flower-cluster">
@@ -507,20 +533,23 @@
 
     <!-- CAPA DE EFECTOS DE FONDO -->
     <div class="background-fx-layer" id="fxContainer">
-        <!-- Mariposas Mágicas Grandes -->
-        <div class="butterfly-container b-1">
+        <!-- Mariposas Multicorrespondientes Volando por Todo el Fondo -->
+        <div class="butterfly-container b-gold b-1">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
-        <div class="butterfly-container b-2">
+        <div class="butterfly-container b-rose b-2">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
-        <div class="butterfly-container b-3">
+        <div class="butterfly-container b-silver b-3">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
-        <div class="butterfly-container b-4">
+        <div class="butterfly-container b-gold b-4">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
-        <div class="butterfly-container b-5">
+        <div class="butterfly-container b-rose b-5">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
+        <div class="butterfly-container b-silver b-6">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
 
@@ -550,8 +579,8 @@
                 heart.style.animationDuration = (Math.random() * 7 + 9) + 's';
                 fxLayer.appendChild(heart);
             }
-            // Estrellitas (Destellos plateados abundantes)
-            for(let i=0; i<35; i++) {
+            // Estrellitas (Destellos plateados y dorados abundantes)
+            for(let i=0; i<40; i++) {
                 let sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
                 sparkle.innerHTML = '✦';
