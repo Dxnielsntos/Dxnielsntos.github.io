@@ -1,4 +1,3 @@
-/* Importamos las fuentes para el título y la escritura a mano */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@700&display=swap');
 
 * {
@@ -8,7 +7,6 @@
 }
 
 body {
-    /* Fondo azul cielo muy suave y relajante */
     background: radial-gradient(circle at center, #f0f8ff 0%, #dbeafe 100%);
     display: flex;
     justify-content: center;
@@ -28,7 +26,7 @@ body {
     align-items: center;
 }
 
-/* --- EL SOBRE (Tonos blancos y azul hielo) --- */
+/* --- EL SOBRE --- */
 .envelope-wrapper {
     position: relative;
     width: 320px;
@@ -42,7 +40,7 @@ body {
     height: 100%;
     background-color: #f8fafc;
     border-radius: 6px;
-    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15); /* Sombra con un toque azulado */
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
 }
 
 .flap {
@@ -74,7 +72,7 @@ body {
     pointer-events: none;
 }
 
-/* --- LA CARTA ESTILO AESTHETIC AZUL --- */
+/* --- LA CARTA --- */
 .letter {
     position: absolute;
     width: 90%;
@@ -82,7 +80,6 @@ body {
     top: 5%;
     left: 5%;
     background-color: #ffffff;
-    /* Renglones de libreta en un azul pastel muy sutil */
     background-image: repeating-linear-gradient(transparent, transparent 29px, #bfdbfe 30px);
     border: 1px solid #e0f2fe;
     border-radius: 8px;
@@ -100,18 +97,17 @@ body {
 .message h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 32px;
-    color: #2563eb; /* Azul intenso y elegante */
+    color: #2563eb;
     text-align: center;
     margin-bottom: 15px;
     line-height: 1;
 }
 
 .message p {
-    /* Fuente que simula escritura a mano */
     font-family: 'Caveat', cursive;
     font-size: 24px;
-    color: #334155; /* Tinta gris azulada */
-    line-height: 30px; /* Alineación perfecta con los renglones */
+    color: #334155;
+    line-height: 30px;
     margin-top: 0;
     text-align: left;
 }
@@ -125,26 +121,46 @@ body {
     line-height: 30px;
 }
 
-/* --- EL SELLO --- */
+/* --- EL NUEVO SELLO CSS (Irrompible) --- */
 .wax-seal {
     position: absolute;
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 75px;
+    width: 65px;
+    height: 65px;
+    /* Un degradado azul para simular la cera con volumen */
+    background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb, #1e3a8a);
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 -3px 5px rgba(0,0,0,0.3);
+    border: 1px solid #1d4ed8;
     cursor: pointer;
     z-index: 5;
     transition: transform 0.3s ease, opacity 0.4s ease;
-    mix-blend-mode: multiply; 
-    /* ¡Magia! Este filtro convierte tu sello rojo en azul rey */
-    filter: hue-rotate(210deg) saturate(1.2) brightness(0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* El estilo del corazón del centro */
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Borde interior del sello */
+.wax-seal::before {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
 }
 
 .wax-seal:hover {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* --- ANIMACIONES DE APERTURA --- */
+/* --- ANIMACIONES --- */
 #envelope.open .flap {
     transform: rotateX(180deg);
     z-index: 1;
@@ -164,7 +180,6 @@ body {
     width: 360px;
     height: 520px;
     z-index: 100;
-    /* Sombra profunda al abrirse para resaltar en la pantalla */
     box-shadow: 0 25px 60px rgba(30, 58, 138, 0.2); 
     cursor: auto;
     overflow-y: auto;
@@ -175,7 +190,7 @@ body {
     pointer-events: none;
 }
 
-/* --- CORAZONES DE FONDO (Azules para acompañar) --- */
+/* --- CORAZONES DE FONDO --- */
 .heart { 
     position: absolute; 
     width: 20px; 
