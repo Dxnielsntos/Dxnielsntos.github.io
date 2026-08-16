@@ -15,12 +15,13 @@
         }
 
         body {
-            /* Fondo elegante y romántico */
+            /* Fondo elegante y romántico centrado */
             background: radial-gradient(circle at center, #590d22 0%, #20040a 60%, #000000 100%);
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             font-family: 'Playfair Display', serif;
             overflow: hidden;
             position: relative;
@@ -30,7 +31,7 @@
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0) 70%);
             z-index: 1;
             animation: breathe 5s infinite alternate ease-in-out;
             pointer-events: none;
@@ -41,7 +42,7 @@
             100% { transform: scale(1.3); opacity: 1; }
         }
 
-        /* --- CAPA DE EFECTOS DE FONDO (Visible sobre el fondo y alrededor) --- */
+        /* --- CAPA DE EFECTOS DE FONDO (Pantalla Completa) --- */
         .background-fx-layer {
             position: absolute;
             top: 0;
@@ -52,27 +53,27 @@
             pointer-events: none;
         }
 
-        /* Estrellitas centelleantes */
+        /* Estrellitas centelleantes más grandes */
         .sparkle {
             position: absolute;
             color: #cbd5e1;
             opacity: 0;
-            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+            text-shadow: 0 0 10px rgba(255,255,255,0.9);
             animation: twinkle 4s ease-in-out infinite;
         }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-            50% { opacity: 0.9; transform: scale(1.2) rotate(45deg); }
+            50% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
-        /* Corazones Plateados Flotantes */
+        /* Corazones Plateados Flotantes más notorios */
         .silver-heart-float { 
             position: absolute; 
             background-color: #cbd5e1; 
             transform: rotate(45deg); 
             opacity: 0; 
-            box-shadow: 0 0 10px rgba(203, 213, 225, 0.5);
+            box-shadow: 0 0 14px rgba(203, 213, 225, 0.7);
             animation: floatUpHearts 12s linear infinite; 
         }
 
@@ -81,35 +82,35 @@
             position: absolute; 
             background-color: #cbd5e1; 
             border-radius: 50%; 
-            box-shadow: 0 0 10px rgba(203, 213, 225, 0.5);
+            box-shadow: 0 0 14px rgba(203, 213, 225, 0.7);
         }
         
-        .silver-heart-float.small { width: 10px; height: 10px; }
-        .silver-heart-float.small::before { width: 10px; height: 10px; top: -5px; left: 0; }
-        .silver-heart-float.small::after { width: 10px; height: 10px; top: 0; left: -5px; }
+        .silver-heart-float.small { width: 14px; height: 14px; }
+        .silver-heart-float.small::before { width: 14px; height: 14px; top: -7px; left: 0; }
+        .silver-heart-float.small::after { width: 14px; height: 14px; top: 0; left: -7px; }
 
-        .silver-heart-float.medium { width: 16px; height: 16px; }
-        .silver-heart-float.medium::before { width: 16px; height: 16px; top: -8px; left: 0; }
-        .silver-heart-float.medium::after { width: 16px; height: 16px; top: 0; left: -8px; }
+        .silver-heart-float.medium { width: 22px; height: 22px; }
+        .silver-heart-float.medium::before { width: 22px; height: 22px; top: -11px; left: 0; }
+        .silver-heart-float.medium::after { width: 22px; height: 22px; top: 0; left: -11px; }
 
         @keyframes floatUpHearts { 
             0% { transform: translateY(110vh) rotate(45deg) scale(0.8); opacity: 0; } 
-            20% { opacity: 0.5; }
-            80% { opacity: 0.5; }
-            100% { transform: translateY(-20vh) rotate(45deg) scale(1.2); opacity: 0; } 
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) rotate(45deg) scale(1.3); opacity: 0; } 
         }
 
-        /* Mariposas 3D Mágicas */
+        /* Mariposas 3D Mágicas con mayor tamaño */
         .butterfly-container {
             position: absolute;
-            bottom: -50px;
-            animation: fly 15s linear infinite;
+            bottom: -60px;
+            animation: fly 14s linear infinite;
         }
 
         .butterfly {
             position: relative;
-            width: 30px; 
-            height: 30px;
+            width: 45px; 
+            height: 45px;
             transform-style: preserve-3d;
             transform: rotateX(50deg) rotateZ(20deg);
         }
@@ -117,25 +118,25 @@
         .wing {
             position: absolute;
             top: 0;
-            width: 15px; 
-            height: 30px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(148, 163, 184, 0.6));
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-            opacity: 0.9;
+            width: 22px; 
+            height: 45px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(148, 163, 184, 0.7));
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+            opacity: 0.95;
         }
 
         .left-wing {
             left: 0;
             border-radius: 100% 0% 100% 0%;
             transform-origin: right center;
-            animation: flapLeft 0.2s infinite alternate ease-in-out;
+            animation: flapLeft 0.22s infinite alternate ease-in-out;
         }
 
         .right-wing {
             right: 0;
             border-radius: 0% 100% 0% 100%;
             transform-origin: left center;
-            animation: flapRight 0.2s infinite alternate ease-in-out;
+            animation: flapRight 0.22s infinite alternate ease-in-out;
         }
 
         @keyframes flapLeft {
@@ -149,22 +150,24 @@
         }
 
         @keyframes fly {
-            0% { transform: translate(0, 105vh) scale(0.5); opacity: 0; }
-            15% { opacity: 0.9; }
-            85% { opacity: 0.9; }
-            100% { transform: translate(20vw, -20vh) scale(1.3); opacity: 0; }
+            0% { transform: translate(0, 105vh) scale(0.6); opacity: 0; }
+            15% { opacity: 0.95; }
+            85% { opacity: 0.95; }
+            100% { transform: translate(25vw, -20vh) scale(1.4); opacity: 0; }
         }
 
-        .b-1 { left: 10%; animation-duration: 12s; animation-delay: 1s; }
-        .b-2 { left: 35%; animation-duration: 16s; animation-delay: 4s; }
-        .b-3 { left: 65%; animation-duration: 14s; animation-delay: 2s; }
-        .b-4 { left: 85%; animation-duration: 18s; animation-delay: 6s; }
-        .b-5 { left: 50%; animation-duration: 13s; animation-delay: 9s; }
+        .b-1 { left: 8%; animation-duration: 11s; animation-delay: 0s; }
+        .b-2 { left: 30%; animation-duration: 15s; animation-delay: 3s; }
+        .b-3 { left: 60%; animation-duration: 13s; animation-delay: 1s; }
+        .b-4 { left: 82%; animation-duration: 16s; animation-delay: 5s; }
+        .b-5 { left: 45%; animation-duration: 12s; animation-delay: 7s; }
 
+        /* --- CONTENEDOR CENTRAL DEL SOBRE --- */
         .main-canvas {
-            position: relative;
-            width: 100%;
-            height: 100vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -176,7 +179,6 @@
             position: relative;
             width: 460px;
             height: 310px;
-            z-index: 20;
             animation: hoverEffect 4s ease-in-out infinite;
         }
 
@@ -390,12 +392,12 @@
 <body>
 
     <!-- Focos de luz cálida en el fondo -->
-    <div class="glow-orb" style="width: 600px; height: 600px; top: -200px; left: -200px; animation-duration: 6s;"></div>
-    <div class="glow-orb" style="width: 700px; height: 700px; bottom: -300px; right: -200px; animation-delay: 2s; animation-duration: 8s;"></div>
+    <div class="glow-orb" style="width: 600px; height: 600px; top: -100px; left: -100px; animation-duration: 6s;"></div>
+    <div class="glow-orb" style="width: 700px; height: 700px; bottom: -100px; right: -100px; animation-delay: 2s; animation-duration: 8s;"></div>
     
     <!-- CAPA DE EFECTOS DE FONDO -->
     <div class="background-fx-layer" id="fxContainer">
-        <!-- Mariposas Mágicas -->
+        <!-- Mariposas Mágicas Grandes -->
         <div class="butterfly-container b-1">
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
@@ -412,13 +414,13 @@
             <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
         </div>
 
-        <!-- Script interno para generar elementos de fondo dinámicos garantizados -->
+        <!-- Script interno para generar elementos dinámicos optimizados -->
         <script>
             const fxLayer = document.getElementById('fxContainer');
             // Corazones flotantes
             for(let i=0; i<18; i++) {
                 let heart = document.createElement('div');
-                heart.className = Math.random() > 0.5 ? 'silver-heart-float medium' : 'silver-heart-float small';
+                heart.className = Math.random() > 0.4 ? 'silver-heart-float medium' : 'silver-heart-float small';
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.animationDelay = Math.random() * 10 + 's';
                 heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
@@ -431,7 +433,7 @@
                 sparkle.innerHTML = '✦';
                 sparkle.style.left = Math.random() * 100 + 'vw';
                 sparkle.style.top = Math.random() * 100 + 'vh';
-                sparkle.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                sparkle.style.fontSize = (Math.random() * 18 + 12) + 'px';
                 sparkle.style.animationDelay = Math.random() * 5 + 's';
                 sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 fxLayer.appendChild(sparkle);
