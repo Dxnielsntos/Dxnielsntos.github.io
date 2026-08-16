@@ -3,66 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti</title>
-    <!-- Fuentes personalizadas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Una Carta para Ti</title>
+    <!-- Aquí conectamos tu archivo de diseño -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <!-- Corazones azules decorativos flotando de fondo -->
+    <div class="heart" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
+    <div class="heart" style="top: 75%; left: 10%; animation-delay: 1.2s;"></div>
+    <div class="heart" style="top: 25%; right: 18%; animation-delay: 0.5s;"></div>
+    <div class="heart" style="top: 80%; right: 15%; animation-delay: 1.8s;"></div>
 
     <div class="main-canvas">
-        
-        <!-- Elementos decorativos flotantes (Corazones plateados y globos) -->
-        <div class="heart" style="top: 10%; left: 30%;"></div>
-        <div class="heart" style="bottom: 20%; right: 25%;"></div>
-        <div class="heart" style="top: 30%; right: 5%;"></div>
-        <div class="balloon" style="top: 10%; right: 30%;">🎈</div>
-        <div class="balloon" style="bottom: 15%; left: 30%;">🎈</div>
-        <div class="balloon" style="top: 50%; left: 8%;">🎈</div>
-
-        <!-- Collage de Stickers -->
-        <img src="minion_asomado.png" class="sticker minion-peek" alt="Minion asomado">
-        <img src="snoopy_flores.png" class="sticker snoopy-flowers" alt="Snoopy flores">
-        <img src="minion_rosa.png" class="sticker minion-rose" alt="Minion rosa">
-        <img src="snoopy_feliz.png" class="sticker snoopy-happy" alt="Snoopy feliz">
-        <img src="snoopy_estresado.png" class="sticker snoopy-stress" alt="Snoopy estresado">
-        <img src="snoopy_corazones.png" class="sticker snoopy-hearts" alt="Snoopy corazones">
-        <img src="snoopy_woodstock.png" class="sticker snoopy-woodstock-heart" alt="Snoopy y Woodstock">
-        <img src="minion_pijama.png" class="sticker minion-pajamas" alt="Minion pijama">
-        
-        <!-- El sobre central -->
         <div class="envelope-wrapper">
+            <!-- El Sobre -->
             <div id="envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
                 
-                <!-- La carta -->
-                <div class="letter" id="letter">
+                <!-- La Carta -->
+                <div class="letter">
                     <div class="message">
-                        <h1 class="title-font">Para ti,</h1>
+                        <h1>Hola...</h1>
+                        <p>Quería escribirte esto porque hay detalles que se aprecian mucho más cuando están en una carta.</p>
+                        <p>Espero que esto te saque una sonrisa y que tengas un día increíble.</p>
                         
-                        <p>No es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy sentí la necesidad de detenerme a explicarte el motivo. Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, la respuesta es clara:</p>
-                        
-                        <p>Porque en tus ojos encontré la dirección correcta para mi vida. Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión, en realidad tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
-                        
-                        <p>Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación.</p>
-                        
-                        <p class="signature title-font">Con amor, Daniel 🩶</p>
+                        <!-- Tu firma -->
+                        <p class="signature">Con amor, Daniel</p>
                     </div>
                 </div>
                 
-                <div class="flap top-flap"></div>
-                <div class="pocket"></div>
-                
-                <!-- Botón de sello de cera -->
-                <img src="sello.png" alt="Sello de rosa" class="wax-seal" id="open-btn">
+                <!-- El Sello para abrir la carta -->
+                <img src="image_f2e2c6.jpg" alt="Sello" class="wax-seal" id="seal">
             </div>
         </div>
-        
     </div>
 
-    <!-- Sonido al abrir -->
-    <audio id="paper-sound" src="opening.mp3" preload="auto"></audio>
+    <!-- Aquí conectamos tu archivo de animaciones (sonidos y clics) -->
     <script src="script.js"></script>
 </body>
 </html>
