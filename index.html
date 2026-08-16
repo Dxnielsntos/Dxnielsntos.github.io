@@ -41,11 +41,21 @@
             100% { transform: scale(1.3); opacity: 1; }
         }
 
-        /* --- DECORACIÓN: Estrellitas centelleantes --- */
+        /* --- DECORACIÓN DE FONDO (Z-index bajo para pasar por debajo de la carta abierta) --- */
+        .background-fx-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Por debajo de la carta expandida */
+            pointer-events: none;
+        }
+
+        /* Estrellitas centelleantes */
         .sparkle {
             position: absolute;
-            color: #cbd5e1; /* Plateadas para combinar con tu corazón */
-            z-index: 1;
+            color: #cbd5e1;
             opacity: 0;
             text-shadow: 0 0 8px rgba(255,255,255,0.8);
             animation: twinkle 4s ease-in-out infinite;
@@ -56,12 +66,11 @@
             50% { opacity: 0.9; transform: scale(1.2) rotate(45deg); }
         }
 
-        /* --- DECORACIÓN: Corazones Plateados Flotantes --- */
+        /* Corazones Plateados Flotantes */
         .silver-heart-float { 
             position: absolute; 
             background-color: #cbd5e1; 
             transform: rotate(45deg); 
-            z-index: 1; 
             opacity: 0; 
             box-shadow: 0 0 10px rgba(203, 213, 225, 0.5);
             animation: floatUpHearts 12s linear infinite; 
@@ -90,13 +99,11 @@
             100% { transform: translateY(-20vh) rotate(45deg) scale(1.2); opacity: 0; } 
         }
 
-        /* --- DECORACIÓN: Mariposas 3D Mágicas --- */
+        /* Mariposas 3D Mágicas */
         .butterfly-container {
             position: absolute;
-            z-index: 15;
             bottom: -50px;
             animation: fly 15s linear infinite;
-            pointer-events: none;
         }
 
         .butterfly {
@@ -112,7 +119,6 @@
             top: 0;
             width: 15px; 
             height: 30px;
-            /* Alas plateadas semi-transparentes con brillo */
             background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(148, 163, 184, 0.6));
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
             opacity: 0.8;
@@ -149,7 +155,6 @@
             100% { transform: translate(30vw, -30vh) scale(1.3); opacity: 0; }
         }
 
-        /* Variables de vuelo para que no vuelen igual */
         .b-1 { left: 15%; animation-duration: 12s; animation-delay: 1s; }
         .b-2 { left: 45%; animation-duration: 16s; animation-delay: 5s; }
         .b-3 { left: 75%; animation-duration: 14s; animation-delay: 2s; }
@@ -366,8 +371,9 @@
             max-width: 450px;
             height: 85vh;
             max-height: 720px;
-            z-index: 100;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8); 
+            /* Z-index súper alto para que la carta esté encima de todo */
+            z-index: 1000; 
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0,0,0,0.5); 
             cursor: auto;
             overflow-y: auto;
         }
@@ -389,47 +395,50 @@
     <div class="glow-orb" style="width: 600px; height: 600px; top: -200px; left: -200px; animation-duration: 6s;"></div>
     <div class="glow-orb" style="width: 700px; height: 700px; bottom: -300px; right: -200px; animation-delay: 2s; animation-duration: 8s;"></div>
     
-    <!-- MARIPOSAS MÁGICAS -->
-    <div class="butterfly-container b-1">
-        <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
-    </div>
-    <div class="butterfly-container b-2">
-        <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
-    </div>
-    <div class="butterfly-container b-3">
-        <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
-    </div>
-    <div class="butterfly-container b-4">
-        <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
-    </div>
-    <div class="butterfly-container b-5">
-        <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
-    </div>
+    <!-- CAPA DE EFECTOS DE FONDO (Mariposas, corazones y estrellitas pasan por debajo de la carta abierta) -->
+    <div class="background-fx-layer">
+        <!-- Mariposas Mágicas -->
+        <div class="butterfly-container b-1">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
+        <div class="butterfly-container b-2">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
+        <div class="butterfly-container b-3">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
+        <div class="butterfly-container b-4">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
+        <div class="butterfly-container b-5">
+            <div class="butterfly"><div class="wing left-wing"></div><div class="wing right-wing"></div></div>
+        </div>
 
-    <!-- SCRIPT DE CORAZONES PLATEADOS Y ESTRELLITAS -->
-    <script>
-        // Corazones
-        for(let i=0; i<15; i++) {
-            let heart = document.createElement('div');
-            heart.className = Math.random() > 0.5 ? 'silver-heart-float medium' : 'silver-heart-float small';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDelay = Math.random() * 10 + 's';
-            heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
-            document.body.appendChild(heart);
-        }
-        // Estrellitas (Destellos plateados)
-        for(let i=0; i<25; i++) {
-            let sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.innerHTML = '✦';
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.top = Math.random() * 100 + 'vh';
-            sparkle.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            sparkle.style.animationDelay = Math.random() * 5 + 's';
-            sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(sparkle);
-        }
-    </script>
+        <!-- Script interno para generar elementos de fondo dinámicos -->
+        <script>
+            // Corazones flotantes
+            for(let i=0; i<15; i++) {
+                let heart = document.createElement('div');
+                heart.className = Math.random() > 0.5 ? 'silver-heart-float medium' : 'silver-heart-float small';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                document.currentScript.parentElement.appendChild(heart);
+            }
+            // Estrellitas (Destellos plateados)
+            for(let i=0; i<25; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.innerHTML = '✦';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                sparkle.style.animationDelay = Math.random() * 5 + 's';
+                sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.currentScript.parentElement.appendChild(sparkle);
+            }
+        </script>
+    </div>
 
     <div class="main-canvas">
         <div class="envelope-wrapper">
