@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Una Carta para Ti - Galaxia de Corazones (Realismo)</title>
+    <title>Una Carta para Ti - Galaxia de Corazones (Texturas Reales)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -39,7 +39,7 @@
         }
         @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #fff; } }
 
-        /* PLANETAS REALISTAS Y SUS ÓRBITAS */
+        /* PLANETAS Y SUS ÓRBITAS */
         .heart-planet {
             position: fixed; z-index: 2; pointer-events: none;
             animation: orbitPlanet 40s linear infinite;
@@ -50,9 +50,9 @@
             100% { transform: translateY(0) rotate(0deg); }
         }
 
-        .planet-1 { width: 42vw; max-width: 420px; top: -8%; left: -5%; opacity: 0.95; animation-duration: 45s; filter: drop-shadow(0 0 45px rgba(14, 165, 233, 0.45)); }
-        .planet-2 { width: 32vw; max-width: 320px; bottom: 5%; right: -2%; opacity: 0.95; animation-duration: 35s; animation-delay: -10s; filter: drop-shadow(0 0 40px rgba(217, 119, 6, 0.4)); }
-        .planet-3 { width: 18vw; max-width: 180px; top: 12%; right: 12%; opacity: 0.9; animation-duration: 50s; animation-delay: -25s; filter: drop-shadow(0 0 30px rgba(220, 38, 38, 0.4)); }
+        /* Halo atmosférico exterior */
+        .planet-1 { width: 42vw; max-width: 420px; top: -8%; left: -5%; opacity: 0.95; animation-duration: 45s; filter: drop-shadow(0 0 35px rgba(14, 165, 233, 0.6)) drop-shadow(0 0 10px rgba(14, 165, 233, 0.8)); }
+        .planet-2 { width: 32vw; max-width: 320px; bottom: 5%; right: -2%; opacity: 0.95; animation-duration: 35s; animation-delay: -10s; filter: drop-shadow(0 0 30px rgba(217, 119, 6, 0.5)); }
 
         .page-frame { position: fixed; inset: 15px; border: 1px solid rgba(255, 255, 255, 0.05); pointer-events: none; z-index: 5; border-radius: 4px; }
         .page-corner { 
@@ -118,7 +118,6 @@
             .letter-body { padding: 60px 25px; } .title-main { font-size: 3.8rem; } .prose { font-size: 1.25rem; } .dropcap { font-size: 5rem; } .signature { font-size: 3.2rem; } .close-btn { top: 25px; right: 25px; font-size: 0.8rem; }
             .planet-1 { width: 65vw; max-width: none; top: -10%; left: -20%; }
             .planet-2 { width: 50vw; max-width: none; bottom: 5%; right: -15%; }
-            .planet-3 { width: 35vw; top: 10%; }
         }
     </style>
 </head>
@@ -132,101 +131,21 @@
                 <use href="#h-path"/>
             </clipPath>
 
-            <!-- Sombra de esfera 3D -->
-            <radialGradient id="h-shadow" cx="30%" cy="30%" r="75%">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
-                <stop offset="20%" stop-color="#ffffff" stop-opacity="0.05"/>
-                <stop offset="55%" stop-color="#000000" stop-opacity="0.65"/>
-                <stop offset="85%" stop-color="#000000" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+            <!-- Sombra de esfera 3D suave para dar volumen al corazón plano -->
+            <radialGradient id="h-shadow" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+                <stop offset="40%" stop-color="#000000" stop-opacity="0.1"/>
+                <stop offset="70%" stop-color="#000000" stop-opacity="0.6"/>
+                <stop offset="90%" stop-color="#000000" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#000000" stop-opacity="0.95"/>
             </radialGradient>
 
-            <!-- ==========================================
-                 PLANETA 1: LA TIERRA (Mar y Tierra Verde)
-                 ========================================== -->
-            
-            <!-- Filtro que genera manchas de tierra verde vibrante -->
-            <filter id="earth-land" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="4" result="noise"/>
-                <feColorMatrix type="matrix" values="
-                    0 0 0 0 0.133
-                    0 0 0 0 0.772
-                    0 0 0 0 0.368
-                    15 0 0 0 -6.5
-                " in="noise"/>
-            </filter>
-
-            <!-- Filtro que genera nubes blancas sutiles -->
-            <filter id="earth-clouds" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise"/>
-                <feColorMatrix type="matrix" values="
-                    0 0 0 0 1
-                    0 0 0 0 1
-                    0 0 0 0 1
-                    8 0 0 0 -4.5
-                " in="noise"/>
-            </filter>
-
-            <g id="planet-earth">
-                <g clip-path="url(#h-clip)">
-                    <!-- Océano azul de fondo -->
-                    <rect x="-5" y="-5" width="34" height="34" fill="#0ea5e9"/>
-                    
-                    <!-- Capa de tierra verde superpuesta por el filtro -->
-                    <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-land)"/>
-                    
-                    <!-- Capa de nubes sutil superpuesta por el filtro -->
-                    <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-clouds)" opacity="0.6"/>
-                    
-                    <!-- Relieve 3D -->
-                    <use href="#h-path" fill="url(#h-shadow)"/>
-                </g>
-            </g>
-
-            <!-- ==========================================
-                 PLANETA 2: JÚPITER
-                 ========================================== -->
-            <linearGradient id="jupiter-colors" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#8a5a3a"/>
-                <stop offset="15%" stop-color="#d4a373"/>
-                <stop offset="25%" stop-color="#faedcd"/>
-                <stop offset="40%" stop-color="#bc6c25"/>
-                <stop offset="55%" stop-color="#e9edc9"/>
-                <stop offset="70%" stop-color="#d4a373"/>
-                <stop offset="85%" stop-color="#faedcd"/>
-                <stop offset="100%" stop-color="#8a5a3a"/>
-            </linearGradient>
-            
-            <filter id="jupiter-winds" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.005 0.35" numOctaves="6" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-
-            <g id="planet-jupiter">
-                <g clip-path="url(#h-clip)">
-                    <rect x="-5" y="-5" width="34" height="34" fill="url(#jupiter-colors)" filter="url(#jupiter-winds)"/>
-                    <use href="#h-path" fill="url(#h-shadow)"/>
-                </g>
-            </g>
-
-            <!-- ==========================================
-                 PLANETA 3: MARTE
-                 ========================================== -->
-            <filter id="mars-surface" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="7" result="noise"/>
-                <feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise"/>
-                <feDiffuseLighting in="alphaNoise" surfaceScale="2.5" diffuseConstant="1.6" lighting-color="#fca5a5" result="light">
-                    <fePointLight x="0" y="0" z="15"/>
-                </feDiffuseLighting>
-                <feBlend mode="multiply" in="SourceGraphic" in2="light"/>
-            </filter>
-
-            <g id="planet-mars">
-                <g clip-path="url(#h-clip)">
-                    <rect x="-5" y="-5" width="34" height="34" fill="#b91c1c" filter="url(#mars-surface)"/>
-                    <use href="#h-path" fill="url(#h-shadow)"/>
-                </g>
-            </g>
+            <!-- Brillo de la atmósfera interno -->
+            <radialGradient id="h-glow-earth" cx="50%" cy="50%" r="50%">
+                <stop offset="70%" stop-color="#0ea5e9" stop-opacity="0"/>
+                <stop offset="95%" stop-color="#0ea5e9" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.8"/>
+            </radialGradient>
 
             <!-- Sello y Gradiente -->
             <filter id="wax-3d" x="-20%" y="-20%" width="140%" height="140%">
@@ -251,19 +170,27 @@
 
     <div id="starfield"></div>
 
+    <!-- PLANETA 1: LA TIERRA (Con mapa satelital real) -->
     <div class="heart-planet planet-1">
         <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-earth"/>
+            <g clip-path="url(#h-clip)">
+                <!-- Textura real de la tierra -->
+                <image href="https://upload.wikimedia.org/wikipedia/commons/c/c3/Solarsystemscope_texture_2k_earth_daymap.jpg" x="-2" y="2" width="28" height="22" preserveAspectRatio="xMidYMid slice" />
+                <!-- Brillo atmosférico interno -->
+                <use href="#h-path" fill="url(#h-glow-earth)"/>
+                <!-- Sombra 3D -->
+                <use href="#h-path" fill="url(#h-shadow)"/>
+            </g>
         </svg>
     </div>
+
+    <!-- PLANETA 2: JÚPITER (Con textura real) -->
     <div class="heart-planet planet-2">
         <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-jupiter"/>
-        </svg>
-    </div>
-    <div class="heart-planet planet-3">
-        <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
-            <use href="#planet-mars"/>
+            <g clip-path="url(#h-clip)">
+                <image href="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid slice" />
+                <use href="#h-path" fill="url(#h-shadow)"/>
+            </g>
         </svg>
     </div>
 
