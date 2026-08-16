@@ -15,7 +15,6 @@
         }
 
         body {
-            /* Fondo azul cielo muy suave */
             background: radial-gradient(circle at center, #f0f8ff 0%, #dbeafe 100%);
             display: flex;
             justify-content: center;
@@ -180,36 +179,80 @@
             margin-top: 30px;
         }
 
-        /* --- EL SELLO --- */
+        /* --- EL SELLO AESTHETIC --- */
         .wax-seal {
             position: absolute;
             top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 65px;
-            height: 65px;
-            background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb, #1e3a8a);
+            width: 80px; /* Un poco más grande para lucir los detalles */
+            height: 80px;
+            /* Cera azul con mucha profundidad */
+            background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb, #1e3a8a, #0f172a);
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 -3px 5px rgba(0,0,0,0.3);
-            border: 1px solid #1d4ed8;
+            box-shadow: 
+                0 8px 15px rgba(0,0,0,0.3), 
+                inset 0 4px 6px rgba(255,255,255,0.4),
+                inset 0 -5px 10px rgba(0,0,0,0.5);
             cursor: pointer;
             z-index: 5;
-            transition: transform 0.3s ease, opacity 0.4s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 24px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
+        /* Anillo decorativo exterior (Punteado plateado) */
         .wax-seal::before {
             content: "";
             position: absolute;
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 66px;
+            height: 66px;
+            border: 1.5px dashed rgba(203, 213, 225, 0.7);
             border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Anillo decorativo interior (Línea sólida plateada) */
+        .wax-seal::after {
+            content: "";
+            position: absolute;
+            width: 56px;
+            height: 56px;
+            border: 1px solid rgba(203, 213, 225, 0.5);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Contenedor del corazón y la letra */
+        .seal-content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            z-index: 2;
+        }
+
+        /* El Corazón de Plata */
+        .silver-heart {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            fill: url(#silverGradient);
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.5));
+        }
+
+        /* La Letra 'E' grabada */
+        .seal-letter {
+            position: absolute;
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            color: #1e3a8a; /* Azul oscuro para que parezca grabado en la plata */
+            font-weight: 700;
+            z-index: 3;
+            margin-top: -3px; /* Centrado óptico perfecto dentro del corazón */
         }
 
         .wax-seal:hover {
@@ -227,7 +270,6 @@
             z-index: 5;
         }
 
-        /* Carta expandida adaptada para texto más largo */
         #envelope.open .letter.expanded {
             transform: translateY(0);
             position: fixed;
@@ -249,20 +291,23 @@
             pointer-events: none;
         }
 
-        /* Personalización del scrollbar de la carta */
-        .letter::-webkit-scrollbar {
-            width: 6px;
-        }
-        .letter::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .letter::-webkit-scrollbar-thumb {
-            background-color: #bfdbfe;
-            border-radius: 10px;
-        }
+        /* Scrollbar estético */
+        .letter::-webkit-scrollbar { width: 6px; }
+        .letter::-webkit-scrollbar-track { background: transparent; }
+        .letter::-webkit-scrollbar-thumb { background-color: #bfdbfe; border-radius: 10px; }
     </style>
 </head>
 <body>
+
+    <!-- Definición del degradado plateado para el corazón -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+        <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="40%" stop-color="#cbd5e1" />
+            <stop offset="60%" stop-color="#94a3b8" />
+            <stop offset="100%" stop-color="#64748b" />
+        </linearGradient>
+    </svg>
     
     <!-- Corazones Grises flotantes -->
     <div class="heart" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
@@ -300,8 +345,17 @@
                     </div>
                 </div>
                 
-                <!-- Sello -->
-                <div class="wax-seal" id="seal">♥</div>
+                <!-- Sello con el Corazón Plateado y la 'E' -->
+                <div class="wax-seal" id="seal">
+                    <div class="seal-content">
+                        <!-- El gráfico del corazón -->
+                        <svg viewBox="0 0 24 24" class="silver-heart">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <!-- La Letra -->
+                        <span class="seal-letter">E</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -318,13 +372,8 @@
             }, 800);
         });
 
-        // Modificado para que no se cierre si se hace clic adentro mientras se lee
         letter.addEventListener('click', (e) => {
             if (letter.classList.contains('expanded')) {
-                // Solo cerrar si se hace clic muy cerca del borde, 
-                // o puedes crear un botón de "Cerrar" si lo prefieres.
-                // Por ahora lo dejaremos que cierre al hacer clic, 
-                // pero asegúrate de hacer scroll suavemente.
                 letter.classList.remove('expanded');
                 setTimeout(() => {
                     envelope.classList.remove('open');
