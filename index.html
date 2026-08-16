@@ -4,7 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Una Carta para Ti</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #f0f8ff 0%, #dbeafe 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .main-canvas {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- EL SOBRE --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            z-index: 10;
+        }
+
+        #envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #e2e8f0;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.2s;
+            z-index: 4;
+        }
+
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #f1f5f9;
+            border-right: 160px solid #f1f5f9;
+            border-bottom: 120px solid #e2e8f0;
+            border-top: 100px solid transparent;
+            border-radius: 0 0 6px 6px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* --- LA CARTA --- */
+        .letter {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            background-color: #ffffff;
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #bfdbfe 30px);
+            border: 1px solid #e0f2fe;
+            border-radius: 8px;
+            padding: 30px 25px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02), 0 5px 15px rgba(59, 130, 246, 0.08);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s, height 0.5s, left 0.5s, top 0.5s, z-index 0.2s;
+            z-index: 2;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .message h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .message p {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            color: #334155;
+            line-height: 30px;
+            margin-top: 0;
+            text-align: left;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            margin-top: 25px !important;
+            font-size: 28px !important;
+            color: #2563eb;
+            text-align: right;
+            line-height: 30px;
+        }
+
+        /* --- EL SELLO --- */
+        .wax-seal {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb, #1e3a8a);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 -3px 5px rgba(0,0,0,0.3);
+            border: 1px solid #1d4ed8;
+            cursor: pointer;
+            z-index: 5;
+            transition: transform 0.3s ease, opacity 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .wax-seal::before {
+            content: "";
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .wax-seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* --- ANIMACIONES --- */
+        #envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        #envelope.open .letter {
+            transform: translateY(-130px);
+            z-index: 5;
+        }
+
+        #envelope.open .letter.expanded {
+            transform: translateY(0);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.15);
+            width: 360px;
+            height: 520px;
+            z-index: 100;
+            box-shadow: 0 25px 60px rgba(30, 58, 138, 0.2); 
+            cursor: auto;
+            overflow-y: auto;
+        }
+
+        #envelope.open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- CORAZONES DE FONDO --- */
+        .heart { 
+            position: absolute; 
+            width: 20px; 
+            height: 20px; 
+            background-color: #93c5fd; 
+            transform: rotate(45deg); 
+            z-index: 1; 
+            opacity: 0.5; 
+            animation: pulse 3s ease-in-out infinite; 
+        }
+
+        .heart::before, .heart::after { 
+            content: ""; 
+            position: absolute; 
+            width: 20px; 
+            height: 20px; 
+            background-color: #93c5fd; 
+            border-radius: 50%; 
+        }
+
+        .heart::before { top: -10px; left: 0; }
+        .heart::after { top: 0; left: -10px; }
+
+        @keyframes pulse { 
+            0%, 100% { transform: rotate(45deg) scale(1); } 
+            50% { transform: rotate(45deg) scale(1.1); } 
+        }
+    </style>
 </head>
 <body>
     
@@ -32,12 +250,34 @@
                     </div>
                 </div>
                 
-                <!-- SELLO CREADO 100% CON CÓDIGO (Ya no es una imagen) -->
+                <!-- Sello CSS -->
                 <div class="wax-seal" id="seal">♥</div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const envelope = document.getElementById('envelope');
+        const seal = document.getElementById('seal');
+        const letter = document.querySelector('.letter');
+
+        // Cuando hagan clic en el sello de cera
+        seal.addEventListener('click', () => {
+            envelope.classList.add('open');
+            setTimeout(() => {
+                letter.classList.add('expanded');
+            }, 800);
+        });
+
+        // Cuando hagan clic en la carta abierta, se vuelve a guardar
+        letter.addEventListener('click', () => {
+            if (letter.classList.contains('expanded')) {
+                letter.classList.remove('expanded');
+                setTimeout(() => {
+                    envelope.classList.remove('open');
+                }, 800);
+            }
+        });
+    </script>
 </body>
 </html>
