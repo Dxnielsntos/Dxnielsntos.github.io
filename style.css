@@ -8,19 +8,14 @@
 }
 
 body {
-    /* Fondo vibrante y romántico */
-    background: radial-gradient(circle at center, #fff0f5 0%, #fae1dd 100%);
+    /* Fondo azul cielo muy suave y relajante */
+    background: radial-gradient(circle at center, #f0f8ff 0%, #dbeafe 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
-}
-
-.title-font {
-    font-family: 'Dancing Script', cursive;
-    color: #d63031;
 }
 
 .main-canvas {
@@ -33,7 +28,7 @@ body {
     align-items: center;
 }
 
-/* --- EL SOBRE --- */
+/* --- EL SOBRE (Tonos blancos y azul hielo) --- */
 .envelope-wrapper {
     position: relative;
     width: 320px;
@@ -45,9 +40,9 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #fcfcfc;
+    background-color: #f8fafc;
     border-radius: 6px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15); /* Sombra con un toque azulado */
 }
 
 .flap {
@@ -58,7 +53,7 @@ body {
     height: 0;
     border-left: 160px solid transparent;
     border-right: 160px solid transparent;
-    border-top: 120px solid #ede8de;
+    border-top: 120px solid #e2e8f0;
     transform-origin: top;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.2s;
     z-index: 4;
@@ -70,29 +65,29 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid #f9f6f1;
-    border-right: 160px solid #f9f6f1;
-    border-bottom: 120px solid #f1ece4;
+    border-left: 160px solid #f1f5f9;
+    border-right: 160px solid #f1f5f9;
+    border-bottom: 120px solid #e2e8f0;
     border-top: 100px solid transparent;
     border-radius: 0 0 6px 6px;
     z-index: 3;
     pointer-events: none;
 }
 
-/* --- LA CARTA ESTILO AESTHETIC --- */
+/* --- LA CARTA ESTILO AESTHETIC AZUL --- */
 .letter {
     position: absolute;
     width: 90%;
     height: 90%;
     top: 5%;
     left: 5%;
-    /* Efecto de papel fino con renglones sutiles */
-    background-color: #fdfbf7;
-    background-image: repeating-linear-gradient(transparent, transparent 29px, #eeddd7 30px);
-    border: 1px solid #f5ebe6;
+    background-color: #ffffff;
+    /* Renglones de libreta en un azul pastel muy sutil */
+    background-image: repeating-linear-gradient(transparent, transparent 29px, #bfdbfe 30px);
+    border: 1px solid #e0f2fe;
     border-radius: 8px;
     padding: 30px 25px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.02), 0 5px 15px rgba(0,0,0,0.08);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02), 0 5px 15px rgba(59, 130, 246, 0.08);
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s, height 0.5s, left 0.5s, top 0.5s, z-index 0.2s;
     z-index: 2;
     cursor: pointer;
@@ -105,18 +100,18 @@ body {
 .message h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 32px;
-    color: #c76b7e;
+    color: #2563eb; /* Azul intenso y elegante */
     text-align: center;
     margin-bottom: 15px;
     line-height: 1;
 }
 
 .message p {
-    /* Fuente de escritura a mano alineada a los renglones */
+    /* Fuente que simula escritura a mano */
     font-family: 'Caveat', cursive;
     font-size: 24px;
-    color: #4a4a4a;
-    line-height: 30px; /* Esto hace que el texto encaje en las líneas del fondo */
+    color: #334155; /* Tinta gris azulada */
+    line-height: 30px; /* Alineación perfecta con los renglones */
     margin-top: 0;
     text-align: left;
 }
@@ -125,7 +120,7 @@ body {
     font-family: 'Dancing Script', cursive;
     margin-top: 25px !important;
     font-size: 28px !important;
-    color: #c76b7e;
+    color: #2563eb;
     text-align: right;
     line-height: 30px;
 }
@@ -141,6 +136,8 @@ body {
     z-index: 5;
     transition: transform 0.3s ease, opacity 0.4s ease;
     mix-blend-mode: multiply; 
+    /* ¡Magia! Este filtro convierte tu sello rojo en azul rey */
+    filter: hue-rotate(210deg) saturate(1.2) brightness(0.9);
 }
 
 .wax-seal:hover {
@@ -167,7 +164,8 @@ body {
     width: 360px;
     height: 520px;
     z-index: 100;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    /* Sombra profunda al abrirse para resaltar en la pantalla */
+    box-shadow: 0 25px 60px rgba(30, 58, 138, 0.2); 
     cursor: auto;
     overflow-y: auto;
 }
@@ -177,61 +175,31 @@ body {
     pointer-events: none;
 }
 
-/* --- STICKERS --- */
-.sticker { 
-    position: absolute; 
-    z-index: 1; 
-    mix-blend-mode: multiply; 
-    animation: float 3.5s ease-in-out infinite;
-}
-
-.minion-peek { top: 2%; left: 50%; transform: translateX(-50%); width: 140px; animation-delay: 0s; }
-.snoopy-flowers { top: 8%; left: 5%; width: 150px; transform: rotate(-8deg); animation-delay: 0.5s; }
-.minion-rose { top: 8%; right: 5%; width: 130px; transform: rotate(8deg); animation-delay: 1.2s; }
-.snoopy-happy { top: 40%; left: 3%; width: 130px; transform: rotate(-3deg); animation-delay: 0.3s; }
-.snoopy-stress { top: 40%; right: 3%; width: 140px; transform: rotate(3deg); animation-delay: 1.5s; }
-.snoopy-hearts { bottom: 5%; left: 8%; width: 150px; transform: rotate(-5deg); animation-delay: 0.8s; }
-.snoopy-woodstock-heart { bottom: 5%; right: 8%; width: 140px; transform: rotate(5deg); animation-delay: 1.8s; }
-.minion-pajamas { bottom: 2%; left: 50%; transform: translateX(-50%); width: 120px; animation-delay: 0.6s; }
-
-/* Globos y Corazones */
-.balloon { 
-    font-size: 35px; 
-    position: absolute; 
-    z-index: 1; 
-    opacity: 0.9;
-    animation: float 5s ease-in-out infinite; 
-}
-
+/* --- CORAZONES DE FONDO (Azules para acompañar) --- */
 .heart { 
     position: absolute; 
-    width: 25px; 
-    height: 25px; 
-    background-color: #C0C0C0; 
+    width: 20px; 
+    height: 20px; 
+    background-color: #93c5fd; 
     transform: rotate(45deg); 
     z-index: 1; 
-    opacity: 0.8; 
-    animation: pulse 2.5s ease-in-out infinite; 
+    opacity: 0.5; 
+    animation: pulse 3s ease-in-out infinite; 
 }
 
 .heart::before, .heart::after { 
     content: ""; 
     position: absolute; 
-    width: 25px; 
-    height: 25px; 
-    background-color: #C0C0C0; 
+    width: 20px; 
+    height: 20px; 
+    background-color: #93c5fd; 
     border-radius: 50%; 
 }
 
-.heart::before { top: -12.5px; left: 0; }
-.heart::after { top: 0; left: -12.5px; }
+.heart::before { top: -10px; left: 0; }
+.heart::after { top: 0; left: -10px; }
 
 @keyframes pulse { 
     0%, 100% { transform: rotate(45deg) scale(1); } 
     50% { transform: rotate(45deg) scale(1.1); } 
-}
-
-@keyframes float { 
-    0%, 100% { transform: translateY(0); } 
-    50% { transform: translateY(-15px); } 
 }
