@@ -1,36 +1,62 @@
-// Seleccionamos los elementos de nuestra página
-const envelope = document.getElementById('envelope');
-const seal = document.getElementById('seal');
-const letter = document.querySelector('.letter');
+/* --- JAVASCRIPT AJUSTADO (Colocar dentro de <script>) --- */
 
-// Si tenías un efecto de sonido configurado antes, puedes agregarlo aquí.
-// const paperSound = new Audio('tu-archivo-de-sonido.mp3'); 
+document.addEventListener('DOMContentLoaded', () => {
+    const envelope = document.getElementById('envelope');
+    const stage = document.getElementById('stage');
+    const readingView = document.getElementById('reading-view');
+    const closeBtn = document.getElementById('close-btn');
+    const starfield = document.getElementById('starfield');
+    let isAnimating = false;
 
-// Cuando hagan clic en el sello de cera...
-seal.addEventListener('click', () => {
-    
-    // Si tienes sonido, quítale las dos barras inclinadas (//) a la siguiente línea:
-    // paperSound.play();
-    
-    // Paso 1: Abrir la solapa del sobre
-    envelope.classList.add('open');
+    envelope.addEventListener('click', () => {
+        if (isAnimating) return; 
+        isAnimating = true;
 
-    // Paso 2: Esperar a que la carta suba y luego acercarla a la pantalla
-    // Los 800 milisegundos coinciden perfecto con la animación de tu CSS
-    setTimeout(() => {
-        letter.classList.add('expanded');
-    }, 800);
-});
+        // Inicia la animación del sobre
+        envelope.classList.add('is-opening');
 
-// Extra: Si hacen clic en la carta cuando ya está grande, se vuelve a guardar
-letter.addEventListener('click', () => {
-    if (letter.classList.contains('expanded')) {
-        // Primero la alejamos
-        letter.classList.remove('expanded');
-        
-        // Luego cerramos el sobre
+        // AJUSTE DE TIEMPO CLAVE:
+        // Esperamos 500ms (lo que tarda la solapa + la carta en salir un poco)
+        // antes de mostrar la carta completa, en lugar de 1000ms.
         setTimeout(() => {
-            envelope.classList.remove('open');
-        }, 800);
-    }
+            stage.classList.add('is-background');
+            readingView.classList.add('is-visible');
+            isAnimating = false;
+        }, 500); // Antes: 1000
+    });
+
+    closeBtn.addEventListener('click', () => {
+        if (isAnimating) return; 
+        isAnimating = true;
+
+        readingView.classList.remove('is-visible');
+        stage.classList.remove('is-background');
+
+        // Reducimos también el tiempo de espera al cerrar para que sea más ágil
+        setTimeout(() => {
+            envelope.classList.remove('is-opening');
+            isAnimating = false;
+        }, 500); // Antes: 900
+    });
+
+    // Función de estrellas (sin cambios, no afecta la velocidad de la carta)
+    const createStars = () => {
+        const starCount = window.innerWidth < 768 ? 120 : 280;
+        for (let i = 0; i < starCount; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() > 0.8 ? (Math.random() * 2.5 + 1.5) : (Math.random() * 1.5 + 0.5);
+            star.style.width = `${size}px`; 
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.setProperty('--twinkle-dur', `${Math.random() * 3 + 1.5}s`);
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            const colorChance = Math.random();
+            if (colorChance > 0.9) star.style.backgroundColor = '#bae6fd';
+            else if (colorChance > 0.8) star.style.backgroundColor = '#fbcfe8'; 
+            starfield.appendChild(star);
+        }
+    };
+    createStars();
 });
