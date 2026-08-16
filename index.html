@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Cumpleaños</title>
     <style>
-        /* Importación de fuentes súper elegantes */
+        /* Importación de fuentes */
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@700&display=swap');
 
         * {
@@ -15,7 +15,7 @@
         }
 
         body {
-            /* Fondo elegante y romántico: Borgoña profundo a negro */
+            /* Fondo elegante y romántico */
             background: radial-gradient(circle at center, #590d22 0%, #20040a 60%, #000000 100%);
             display: flex;
             justify-content: center;
@@ -71,7 +71,7 @@
             z-index: 10;
         }
 
-        /* --- EL SOBRE: Tono Crema Vintage con Sombra Profunda --- */
+        /* --- EL SOBRE --- */
         .envelope-wrapper {
             position: relative;
             width: 340px;
@@ -89,9 +89,9 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background-color: #fcf6eb; /* Crema muy elegante */
+            background-color: #fcf6eb;
             border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.1); /* Sombra dramática */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.1);
         }
 
         .flap {
@@ -106,7 +106,6 @@
             transform-origin: top;
             transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.2s;
             z-index: 4;
-            /* Detalle de borde dorado en la solapa */
             filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15));
         }
 
@@ -125,7 +124,7 @@
             pointer-events: none;
         }
 
-        /* --- LA CARTA: Pergamino de Lujo --- */
+        /* --- LA CARTA --- */
         .letter {
             position: absolute;
             width: 90%;
@@ -133,7 +132,7 @@
             top: 5%;
             left: 5%;
             background-color: #fffbfa;
-            border: 2px solid #dfc38a; /* Borde dorado oscuro */
+            border: 2px solid #dfc38a;
             border-radius: 4px;
             padding: 40px 30px; 
             box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05), 0 10px 20px rgba(0,0,0,0.3);
@@ -144,19 +143,15 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            /* Marca de agua sutil floral/romántica */
             background-image: radial-gradient(circle at center, rgba(223, 195, 138, 0.1) 0%, transparent 70%);
         }
 
-        .message {
-            position: relative;
-            top: 2px; 
-        }
+        .message { position: relative; top: 2px; }
 
         .message h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 42px;
-            color: #800020; /* Borgoña */
+            color: #800020;
             text-align: center;
             margin-bottom: 25px; 
             font-weight: normal;
@@ -188,21 +183,22 @@
             font-style: normal !important;
         }
 
-        /* --- EL SELLO AESTHETIC (Tu Sello Azul con la E Plateada) --- */
-        /* Ahora resalta increíblemente contra el fondo cálido */
+        /* --- NUEVO SELLO: Cera de Vela Carmesí con Brillo Metálico --- */
         .wax-seal {
             position: absolute;
             top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 85px; 
-            height: 85px;
-            background: radial-gradient(circle at 35% 35%, #4b83fb, #1d4ed8, #1e3a8a, #0b1536);
-            border-radius: 50%;
+            width: 90px; 
+            height: 90px;
+            /* Degradado de cera roja profunda */
+            background: radial-gradient(circle at 35% 30%, #ef4444 0%, #dc2626 20%, #991b1b 60%, #450a0a 100%);
+            /* Forma ligeramente irregular para simular cera derretida real */
+            border-radius: 49% 51% 48% 52% / 51% 48% 52% 49%;
             box-shadow: 
-                0 12px 25px rgba(0,0,0,0.5), 
-                inset 0 4px 6px rgba(255,255,255,0.4),
-                inset 0 -5px 10px rgba(0,0,0,0.6);
+                0 15px 25px rgba(0,0,0,0.6), /* Sombra exterior en el sobre */
+                inset 0 8px 12px rgba(255, 150, 150, 0.6), /* Reflejo metálico/húmedo superior */
+                inset 0 -6px 15px rgba(0,0,0,0.8); /* Profundidad inferior */
             cursor: pointer;
             z-index: 5;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
@@ -211,24 +207,19 @@
             align-items: center;
         }
 
-        .wax-seal::before {
-            content: "";
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            border: 2px dashed rgba(226, 232, 240, 0.85);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
+        /* Borde orgánico hundido del cuño metálico */
         .wax-seal::after {
             content: "";
             position: absolute;
-            width: 58px;
-            height: 58px;
-            border: 1.5px solid rgba(226, 232, 240, 0.7);
+            width: 64px;
+            height: 64px;
+            border: 2px solid rgba(0, 0, 0, 0.25);
             border-radius: 50%;
+            box-shadow: 
+                inset 0 4px 8px rgba(0,0,0,0.6), /* Hundimiento interno */
+                0 2px 4px rgba(255, 100, 100, 0.4); /* Relieve externo de la cera */
             z-index: 1;
+            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.2) 100%);
         }
 
         .seal-content {
@@ -236,26 +227,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 46px;
-            height: 46px;
+            width: 50px;
+            height: 50px;
             z-index: 2;
         }
 
+        /* Corazón plateado intacto, ahora resalta muchísimo sobre el rojo */
         .silver-heart {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.7));
+            width: 90%;
+            height: 90%;
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,0.8));
         }
 
+        /* Letra 'E' ajustada en color vino muy oscuro para parecer grabada */
         .seal-letter {
             position: absolute;
             font-family: 'Dancing Script', cursive;
             font-size: 26px;
-            color: #081121; 
+            color: #1a0408; 
             font-weight: bold;
             z-index: 3;
-            margin-top: -4px; 
+            margin-top: -3px; 
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4); /* Pequeño brillo para el grabado */
         }
 
         .wax-seal:hover {
@@ -307,9 +301,8 @@
     <div class="glow-orb" style="width: 700px; height: 700px; bottom: -300px; right: -200px; animation-delay: 2s; animation-duration: 8s;"></div>
     <div class="glow-orb" style="width: 400px; height: 400px; top: 30%; left: 30%; opacity: 0.3; animation-delay: 1s;"></div>
     
-    <!-- Partículas mágicas doradas (romance y cumpleaños) -->
+    <!-- Partículas mágicas doradas -->
     <script>
-        // Script pequeñito para generar las partículas doradas de fondo
         for(let i=0; i<30; i++) {
             let dust = document.createElement('div');
             dust.className = 'gold-dust';
@@ -331,7 +324,6 @@
                 <!-- La Carta -->
                 <div class="letter">
                     <div class="message">
-                        <!-- Título Romántico de Cumpleaños -->
                         <h1>Feliz Cumpleaños</h1>
                         
                         <p>No es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy, en tu día especial, sentí la necesidad de detenerme a explicarte el motivo.</p>
@@ -342,12 +334,11 @@
                         
                         <p>Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación.</p>
 
-                        <!-- Firma -->
                         <p class="signature">Con amor, Daniel</p>
                     </div>
                 </div>
                 
-                <!-- Sello Azul con Corazón Plateado y E -->
+                <!-- Sello de Cera Roja con Corazón Plateado -->
                 <div class="wax-seal" id="seal">
                     <div class="seal-content">
                         <svg viewBox="0 0 24 24" class="silver-heart">
@@ -356,7 +347,7 @@
                                     <stop offset="0%" stop-color="#ffffff" />
                                     <stop offset="40%" stop-color="#cbd5e1" />
                                     <stop offset="60%" stop-color="#94a3b8" />
-                                    <stop offset="100%" stop-color="#64748b" />
+                                    <stop offset="100%" stop-color="#475569" />
                                 </linearGradient>
                             </defs>
                             <path fill="url(#silverGradient)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
