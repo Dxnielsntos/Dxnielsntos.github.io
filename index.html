@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Una Carta para Ti</title>
     <style>
+        /* Importación de fuentes */
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@700&display=swap');
 
         * {
@@ -14,6 +15,7 @@
         }
 
         body {
+            /* Fondo azul cielo muy suave */
             background: radial-gradient(circle at center, #f0f8ff 0%, #dbeafe 100%);
             display: flex;
             justify-content: center;
@@ -31,6 +33,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* --- DECORACIÓN: Corazones Grises/Plateados --- */
+        .heart { 
+            position: absolute; 
+            width: 18px; 
+            height: 18px; 
+            background-color: #cbd5e1; 
+            transform: rotate(45deg); 
+            z-index: 1; 
+            opacity: 0.6; 
+            animation: pulse 3.5s ease-in-out infinite; 
+        }
+
+        .heart::before, .heart::after { 
+            content: ""; 
+            position: absolute; 
+            width: 18px; 
+            height: 18px; 
+            background-color: #cbd5e1; 
+            border-radius: 50%; 
+        }
+        .heart::before { top: -9px; left: 0; }
+        .heart::after { top: 0; left: -9px; }
+
+        /* --- DECORACIÓN: Destellos/Estrellas --- */
+        .sparkle {
+            position: absolute;
+            color: #94a3b8; 
+            font-size: 22px;
+            z-index: 1;
+            opacity: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse { 
+            0%, 100% { transform: rotate(45deg) scale(1); } 
+            50% { transform: rotate(45deg) scale(1.15); } 
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
         /* --- EL SOBRE --- */
@@ -79,7 +124,7 @@
             pointer-events: none;
         }
 
-        /* --- LA CARTA --- */
+        /* --- LA CARTA Y LOS RENGLONES --- */
         .letter {
             position: absolute;
             width: 90%;
@@ -90,7 +135,7 @@
             background-image: repeating-linear-gradient(transparent, transparent 29px, #bfdbfe 30px);
             border: 1px solid #e0f2fe;
             border-radius: 8px;
-            padding: 30px 25px;
+            padding: 30px 25px 30px 25px; 
             box-shadow: inset 0 0 20px rgba(0,0,0,0.02), 0 5px 15px rgba(59, 130, 246, 0.08);
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s, height 0.5s, left 0.5s, top 0.5s, z-index 0.2s;
             z-index: 2;
@@ -101,31 +146,38 @@
             justify-content: flex-start;
         }
 
+        .message {
+            position: relative;
+            top: 2px; 
+        }
+
+        .message h1, .message p, .signature {
+            margin: 0;
+            line-height: 30px; 
+        }
+
         .message h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 32px;
+            font-size: 28px;
             color: #2563eb;
             text-align: center;
-            margin-bottom: 15px;
-            line-height: 1;
+            margin-bottom: 30px; 
         }
 
         .message p {
             font-family: 'Caveat', cursive;
-            font-size: 24px;
+            font-size: 22px;
             color: #334155;
-            line-height: 30px;
-            margin-top: 0;
             text-align: left;
+            margin-bottom: 30px; 
         }
 
         .signature {
             font-family: 'Dancing Script', cursive;
-            margin-top: 25px !important;
-            font-size: 28px !important;
+            font-size: 26px !important;
             color: #2563eb;
             text-align: right;
-            line-height: 30px;
+            margin-top: 30px;
         }
 
         /* --- EL SELLO --- */
@@ -164,7 +216,7 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* --- ANIMACIONES --- */
+        /* --- ANIMACIONES DE APERTURA --- */
         #envelope.open .flap {
             transform: rotateX(180deg);
             z-index: 1;
@@ -175,14 +227,17 @@
             z-index: 5;
         }
 
+        /* Carta expandida adaptada para texto más largo */
         #envelope.open .letter.expanded {
             transform: translateY(0);
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1.15);
-            width: 360px;
-            height: 520px;
+            transform: translate(-50%, -50%) scale(1);
+            width: 90vw;
+            max-width: 400px;
+            height: 85vh;
+            max-height: 720px;
             z-index: 100;
             box-shadow: 0 25px 60px rgba(30, 58, 138, 0.2); 
             cursor: auto;
@@ -194,43 +249,32 @@
             pointer-events: none;
         }
 
-        /* --- CORAZONES DE FONDO --- */
-        .heart { 
-            position: absolute; 
-            width: 20px; 
-            height: 20px; 
-            background-color: #93c5fd; 
-            transform: rotate(45deg); 
-            z-index: 1; 
-            opacity: 0.5; 
-            animation: pulse 3s ease-in-out infinite; 
+        /* Personalización del scrollbar de la carta */
+        .letter::-webkit-scrollbar {
+            width: 6px;
         }
-
-        .heart::before, .heart::after { 
-            content: ""; 
-            position: absolute; 
-            width: 20px; 
-            height: 20px; 
-            background-color: #93c5fd; 
-            border-radius: 50%; 
+        .letter::-webkit-scrollbar-track {
+            background: transparent;
         }
-
-        .heart::before { top: -10px; left: 0; }
-        .heart::after { top: 0; left: -10px; }
-
-        @keyframes pulse { 
-            0%, 100% { transform: rotate(45deg) scale(1); } 
-            50% { transform: rotate(45deg) scale(1.1); } 
+        .letter::-webkit-scrollbar-thumb {
+            background-color: #bfdbfe;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     
-    <!-- Corazones azules flotantes -->
+    <!-- Corazones Grises flotantes -->
     <div class="heart" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
     <div class="heart" style="top: 75%; left: 10%; animation-delay: 1.2s;"></div>
     <div class="heart" style="top: 25%; right: 18%; animation-delay: 0.5s;"></div>
     <div class="heart" style="top: 80%; right: 15%; animation-delay: 1.8s;"></div>
+
+    <!-- Destellos decorativos (Estrellitas plateadas) -->
+    <div class="sparkle" style="top: 15%; left: 35%; animation-delay: 0.3s;">✦</div>
+    <div class="sparkle" style="top: 65%; left: 20%; animation-delay: 2.1s;">✦</div>
+    <div class="sparkle" style="top: 30%; right: 28%; animation-delay: 1.5s;">✦</div>
+    <div class="sparkle" style="top: 85%; right: 25%; animation-delay: 0.8s;">✦</div>
 
     <div class="main-canvas">
         <div class="envelope-wrapper">
@@ -243,14 +287,20 @@
                 <div class="letter">
                     <div class="message">
                         <h1>Hola...</h1>
-                        <p>Quería escribirte esto porque hay detalles que se aprecian mucho más cuando están en una carta.</p>
-                        <p>Espero que esto te saque una sonrisa y que tengas un día increíble.</p>
                         
+                        <p>No es ningún secreto que te amo con cada célula de mi cuerpo, pero hoy sentí la necesidad de detenerme a explicarte el motivo.</p>
+                        
+                        <p>Si alguna vez te preguntas por qué me entrego a ti con tanta certeza, la respuesta es clara: Porque en tus ojos encontré la dirección correcta para mi vida.</p>
+                        
+                        <p>Muchas veces he creído que tú eres mi mayor deseo pero, me permito decir que es una gran confusión, en realidad tú eres parte de cada una de las cosas que mi mente idealista me ha dejado desear para mi vida y sé que hasta mis planes más simples tendrán éxito si aún estás presente.</p>
+                        
+                        <p>Tú le diste forma a todo aquello que no me había permitido ni soñar, tu existencia viaja más lejos que mi propia imaginación.</p>
+
                         <p class="signature">Con amor, Daniel</p>
                     </div>
                 </div>
                 
-                <!-- Sello CSS -->
+                <!-- Sello -->
                 <div class="wax-seal" id="seal">♥</div>
             </div>
         </div>
@@ -261,7 +311,6 @@
         const seal = document.getElementById('seal');
         const letter = document.querySelector('.letter');
 
-        // Cuando hagan clic en el sello de cera
         seal.addEventListener('click', () => {
             envelope.classList.add('open');
             setTimeout(() => {
@@ -269,9 +318,13 @@
             }, 800);
         });
 
-        // Cuando hagan clic en la carta abierta, se vuelve a guardar
-        letter.addEventListener('click', () => {
+        // Modificado para que no se cierre si se hace clic adentro mientras se lee
+        letter.addEventListener('click', (e) => {
             if (letter.classList.contains('expanded')) {
+                // Solo cerrar si se hace clic muy cerca del borde, 
+                // o puedes crear un botón de "Cerrar" si lo prefieres.
+                // Por ahora lo dejaremos que cierre al hacer clic, 
+                // pero asegúrate de hacer scroll suavemente.
                 letter.classList.remove('expanded');
                 setTimeout(() => {
                     envelope.classList.remove('open');
