@@ -11,8 +11,9 @@
 
     <style>
         :root {
-            var(--silver-gradient): linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%);
-            var(--paper): #ffffff;
+            /* CORRECCIÓN: Se eliminó el "var()" al declarar la variable para que funcione correctamente */
+            --silver-gradient: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%);
+            --paper: #ffffff;
             --text-body: #000000;
             --text-galaxy: #1e103c;
             --text-highlight: #4c1d95;
@@ -31,23 +32,21 @@
             display: flex; justify-content: center; align-items: center; perspective: 2000px;
         }
 
-        #starfield { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
-        
-        .star {
-            position: absolute; background: #fff; border-radius: 50%;
-            animation: twinkle var(--twinkle-dur) ease-in-out infinite alternate;
-        }
-        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #fff; } }
+        /* OPTIMIZACIÓN: Se usa para el canvas que dibujará las estrellas por hardware */
+        #starfield { position: fixed; inset: 0; z-index: 1; pointer-events: none; width: 100vw; height: 100vh; }
 
         /* PLANETAS REALISTAS Y SUS ÓRBITAS */
         .heart-planet {
             position: fixed; z-index: 2; pointer-events: none;
             animation: orbitPlanet 40s linear infinite;
+            /* OPTIMIZACIÓN: Aceleración GPU */
+            will-change: transform; 
         }
         @keyframes orbitPlanet {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-25px) rotate(4deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+            /* OPTIMIZACIÓN: translate3d en lugar de translateY para forzar renderizado 3D en GPU */
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            50% { transform: translate3d(0, -25px, 0) rotate(4deg); }
+            100% { transform: translate3d(0, 0, 0) rotate(0deg); }
         }
 
         .planet-1 { width: 42vw; max-width: 420px; top: -8%; left: -5%; opacity: 0.95; animation-duration: 45s; filter: drop-shadow(0 0 45px rgba(14, 165, 233, 0.45)); }
@@ -65,24 +64,24 @@
         .text-cosmic { font-family: 'Great Vibes', cursive; color: var(--text-galaxy); text-shadow: 1px 1px 0px rgba(0,0,0,0.05); line-height: 1.4; padding: 10px; }
 
         /* EL SOBRE */
-        .stage { position: relative; z-index: 20; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .stage.is-background { filter: blur(10px); transform: scale(0.85) translateY(50px); pointer-events: none; opacity: 0; }
+        .stage { position: relative; z-index: 20; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, filter, opacity; }
+        .stage.is-background { filter: blur(10px); transform: scale3d(0.85, 0.85, 1) translate3d(0, 50px, 0); pointer-events: none; opacity: 0; }
 
-        .envelope-wrapper { position: relative; width: 400px; height: 260px; margin: 0 auto; animation: gentleFloat 6s ease-in-out infinite; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 0 60px rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.8); border-radius: 4px; }
-        @keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 50px 90px rgba(0, 0, 0, 0.9); } }
+        .envelope-wrapper { position: relative; width: 400px; height: 260px; margin: 0 auto; animation: gentleFloat 6s ease-in-out infinite; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 0 60px rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.8); border-radius: 4px; will-change: transform; }
+        @keyframes gentleFloat { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -15px, 0); box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 50px 90px rgba(0, 0, 0, 0.9); } }
 
         .env-back { position: absolute; inset: 0; background: #f4f6f8; border-radius: 4px; box-shadow: inset 0 0 40px rgba(148, 163, 184, 0.3); }
-        .env-silver-lining { position: absolute; inset: 0; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%); background-size: 200%; animation: shine 4s linear infinite; clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%); z-index: 3; }
+        .env-silver-lining { position: absolute; inset: 0; background: var(--silver-gradient); background-size: 200%; animation: shine 4s linear infinite; clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%); z-index: 3; }
         @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .env-front { position: absolute; inset: 2px; z-index: 4; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 50% 49.5%, 100% 0, 100% 100%, 0 100%); filter: drop-shadow(0 -3px 10px rgba(0,0,0,0.15)); }
 
-        .letter-preview { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; align-items: center; padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; }
+        .letter-preview { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; align-items: center; padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; will-change: transform; }
         .preview-title { font-size: 3.2rem; margin: 0; }
-        .envelope-wrapper.is-opening .letter-preview { transform: translateY(-75%) scale(0.95); }
+        .envelope-wrapper.is-opening .letter-preview { transform: translate3d(0, -75%, 0) scale(0.95); }
 
-        .env-flap-container { position: absolute; top: 0; left: 0; right: 0; height: 60%; z-index: 6; transform-origin: top center; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; }
-        .flap-silver { position: absolute; inset: 0; background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .env-flap-container { position: absolute; top: 0; left: 0; right: 0; height: 60%; z-index: 6; transform-origin: top center; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; will-change: transform; }
+        .flap-silver { position: absolute; inset: 0; background: var(--silver-gradient); clip-path: polygon(0 0, 100% 0, 50% 100%); }
         .flap-paper { position: absolute; left: 2px; right: 2px; top: 2px; bottom: 0; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: inset 0 5px 20px rgba(255,255,255,0.8); }
         .envelope-wrapper.is-opening .env-flap-container { transform: rotateX(180deg); }
 
@@ -91,7 +90,7 @@
         .envelope-wrapper.is-opening .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
 
         /* LA CARTA */
-        .reading-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.9); width: 90vw; max-width: 650px; max-height: 88vh; background: #ffffff; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1000; overflow-y: auto; overflow-x: hidden; box-shadow: 0 0 100px rgba(162, 28, 175, 0.15), 0 50px 100px rgba(0, 0, 0, 0.9); }
+        .reading-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.9); width: 90vw; max-width: 650px; max-height: 88vh; background: #ffffff; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1000; overflow-y: auto; overflow-x: hidden; box-shadow: 0 0 100px rgba(162, 28, 175, 0.15), 0 50px 100px rgba(0, 0, 0, 0.9); will-change: transform, opacity; }
         .reading-modal.is-visible { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
         .reading-modal::-webkit-scrollbar { width: 6px; } .reading-modal::-webkit-scrollbar-track { background: transparent; } .reading-modal::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
 
@@ -123,16 +122,11 @@
     </style>
 </head>
 <body>
+    <!-- Todos tus filtros y SVGs intactos tal como fueron diseñados -->
     <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
         <defs>
-            <!-- Forma base del planeta de corazón -->
             <path id="h-path" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            
-            <clipPath id="h-clip">
-                <use href="#h-path"/>
-            </clipPath>
-
-            <!-- Sombra de esfera 3D -->
+            <clipPath id="h-clip"><use href="#h-path"/></clipPath>
             <radialGradient id="h-shadow" cx="30%" cy="30%" r="75%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
                 <stop offset="20%" stop-color="#ffffff" stop-opacity="0.05"/>
@@ -140,52 +134,22 @@
                 <stop offset="85%" stop-color="#000000" stop-opacity="0.95"/>
                 <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
             </radialGradient>
-
-            <!-- ==========================================
-                 PLANETA 1: LA TIERRA (Mar y Tierra Verde)
-                 ========================================== -->
-            
-            <!-- Filtro que genera manchas de tierra verde vibrante -->
             <filter id="earth-land" x="-20%" y="-20%" width="140%" height="140%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="4" result="noise"/>
-                <feColorMatrix type="matrix" values="
-                    0 0 0 0 0.133
-                    0 0 0 0 0.772
-                    0 0 0 0 0.368
-                    15 0 0 0 -6.5
-                " in="noise"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.133 0 0 0 0 0.772 0 0 0 0 0.368 15 0 0 0 -6.5" in="noise"/>
             </filter>
-
-            <!-- Filtro que genera nubes blancas sutiles -->
             <filter id="earth-clouds" x="-20%" y="-20%" width="140%" height="140%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise"/>
-                <feColorMatrix type="matrix" values="
-                    0 0 0 0 1
-                    0 0 0 0 1
-                    0 0 0 0 1
-                    8 0 0 0 -4.5
-                " in="noise"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 8 0 0 0 -4.5" in="noise"/>
             </filter>
-
             <g id="planet-earth">
                 <g clip-path="url(#h-clip)">
-                    <!-- Océano azul de fondo -->
                     <rect x="-5" y="-5" width="34" height="34" fill="#0ea5e9"/>
-                    
-                    <!-- Capa de tierra verde superpuesta por el filtro -->
                     <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-land)"/>
-                    
-                    <!-- Capa de nubes sutil superpuesta por el filtro -->
                     <rect x="-5" y="-5" width="34" height="34" filter="url(#earth-clouds)" opacity="0.6"/>
-                    
-                    <!-- Relieve 3D -->
                     <use href="#h-path" fill="url(#h-shadow)"/>
                 </g>
             </g>
-
-            <!-- ==========================================
-                 PLANETA 2: JÚPITER
-                 ========================================== -->
             <linearGradient id="jupiter-colors" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#8a5a3a"/>
                 <stop offset="15%" stop-color="#d4a373"/>
@@ -196,22 +160,16 @@
                 <stop offset="85%" stop-color="#faedcd"/>
                 <stop offset="100%" stop-color="#8a5a3a"/>
             </linearGradient>
-            
             <filter id="jupiter-winds" x="-20%" y="-20%" width="140%" height="140%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.005 0.35" numOctaves="6" result="noise"/>
                 <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
             </filter>
-
             <g id="planet-jupiter">
                 <g clip-path="url(#h-clip)">
                     <rect x="-5" y="-5" width="34" height="34" fill="url(#jupiter-colors)" filter="url(#jupiter-winds)"/>
                     <use href="#h-path" fill="url(#h-shadow)"/>
                 </g>
             </g>
-
-            <!-- ==========================================
-                 PLANETA 3: MARTE
-                 ========================================== -->
             <filter id="mars-surface" x="-20%" y="-20%" width="140%" height="140%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="7" result="noise"/>
                 <feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise"/>
@@ -220,15 +178,12 @@
                 </feDiffuseLighting>
                 <feBlend mode="multiply" in="SourceGraphic" in2="light"/>
             </filter>
-
             <g id="planet-mars">
                 <g clip-path="url(#h-clip)">
                     <rect x="-5" y="-5" width="34" height="34" fill="#b91c1c" filter="url(#mars-surface)"/>
                     <use href="#h-path" fill="url(#h-shadow)"/>
                 </g>
             </g>
-
-            <!-- Sello y Gradiente -->
             <filter id="wax-3d" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
                 <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1.2" specularExponent="20" lighting-color="#ffffff" result="specOut">
@@ -240,7 +195,6 @@
                 <feComposite in="shadowColor" in2="dropShadow" operator="in" result="shadow"/>
                 <feMerge> <feMergeNode in="shadow"/> <feMergeNode in="SourceGraphic"/> <feMergeNode in="specOut"/> </feMerge>
             </filter>
-            
             <linearGradient id="cosmic-svg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#1e103c"/>
                 <stop offset="50%" stop-color="#4c1d95"/>
@@ -249,7 +203,8 @@
         </defs>
     </svg>
 
-    <div id="starfield"></div>
+    <!-- OPTIMIZACIÓN: Se usa un Canvas en lugar de un Div que inyectaba 280 etiquetas -->
+    <canvas id="starfield"></canvas>
 
     <div class="heart-planet planet-1">
         <svg viewBox="0 0 24 24" style="width:100%; height:100%;">
@@ -328,8 +283,50 @@
             const stage = document.getElementById('stage');
             const readingView = document.getElementById('reading-view');
             const closeBtn = document.getElementById('close-btn');
-            const starfield = document.getElementById('starfield');
+            
+            // OPTIMIZACIÓN: Motor de renderizado en Canvas para las estrellas
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d', { alpha: true });
             let isAnimating = false;
+            let stars = [];
+
+            const initCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                stars = [];
+                const starCount = window.innerWidth < 768 ? 120 : 280;
+                for (let i = 0; i < starCount; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        baseSize: Math.random() > 0.8 ? (Math.random() * 2.5 + 1.5) : (Math.random() * 1.5 + 0.5),
+                        color: Math.random() > 0.9 ? '#bae6fd' : (Math.random() > 0.8 ? '#fbcfe8' : '#ffffff'),
+                        twinkleSpeed: Math.random() * 0.002 + 0.001,
+                        timeOffset: Math.random() * Math.PI * 2
+                    });
+                }
+            };
+
+            const drawStars = (time) => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let star of stars) {
+                    // Cálculo matemático suave para imitar la animación CSS original de "twinkle"
+                    const twinkle = (Math.sin(time * star.twinkleSpeed + star.timeOffset) + 1) / 2;
+                    const currentSize = star.baseSize * (0.5 + 0.7 * twinkle); 
+                    const currentOpacity = 0.1 + 0.9 * twinkle;
+                    
+                    ctx.globalAlpha = currentOpacity;
+                    ctx.fillStyle = star.color;
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, currentSize / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(drawStars);
+            };
+
+            window.addEventListener('resize', initCanvas);
+            initCanvas();
+            requestAnimationFrame(drawStars);
 
             envelope.addEventListener('click', () => {
                 if (isAnimating) return; isAnimating = true;
@@ -350,29 +347,6 @@
                     isAnimating = false;
                 }, 900);
             });
-
-            const createStars = () => {
-                const starCount = window.innerWidth < 768 ? 120 : 280;
-                for (let i = 0; i < starCount; i++) {
-                    let star = document.createElement('div');
-                    star.className = 'star';
-                    let size = Math.random() > 0.8 ? (Math.random() * 2.5 + 1.5) : (Math.random() * 1.5 + 0.5);
-                    
-                    star.style.width = `${size}px`; 
-                    star.style.height = `${size}px`;
-                    star.style.left = `${Math.random() * 100}vw`;
-                    star.style.top = `${Math.random() * 100}vh`;
-                    star.style.setProperty('--twinkle-dur', `${Math.random() * 3 + 1.5}s`);
-                    star.style.animationDelay = `${Math.random() * 5}s`;
-                    
-                    const colorChance = Math.random();
-                    if (colorChance > 0.9) star.style.backgroundColor = '#bae6fd';
-                    else if (colorChance > 0.8) star.style.backgroundColor = '#fbcfe8'; 
-                    
-                    starfield.appendChild(star);
-                }
-            };
-            createStars();
         });
     </script>
 </body>
