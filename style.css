@@ -1,55 +1,5 @@
-:root {
-    --silver-gradient: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 60%, #e2e8f0 100%);
-    --paper: #ffffff;
-    --text-body: #000000;
-    --text-galaxy: #1e103c;
-    --text-highlight: #4c1d95;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
-
-body {
-    background-color: #020005; 
-    background-image: 
-        radial-gradient(circle at 15% 40%, rgba(67, 17, 128, 0.4) 0%, transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(162, 28, 175, 0.25) 0%, transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(14, 58, 140, 0.5) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
-    min-height: 100vh; overflow: hidden; font-family: 'Cormorant Garamond', serif;
-    display: flex; justify-content: center; align-items: center; perspective: 2000px;
-}
-
-#starfield { position: fixed; inset: 0; z-index: 1; pointer-events: none; width: 100vw; height: 100vh; }
-
-/* PLANETAS REALISTAS Y SUS ÓRBITAS */
-.heart-planet {
-    position: fixed; z-index: 2; pointer-events: none;
-    animation: orbitPlanet 40s linear infinite;
-    will-change: transform; 
-}
-@keyframes orbitPlanet {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    50% { transform: translate3d(0, -25px, 0) rotate(4deg); }
-    100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-}
-
-.planet-1 { width: 42vw; max-width: 420px; top: -8%; left: -5%; opacity: 0.95; animation-duration: 45s; filter: drop-shadow(0 0 45px rgba(14, 165, 233, 0.45)); }
-.planet-2 { width: 32vw; max-width: 320px; bottom: 5%; right: -2%; opacity: 0.95; animation-duration: 35s; animation-delay: -10s; filter: drop-shadow(0 0 40px rgba(217, 119, 6, 0.4)); }
-.planet-3 { width: 18vw; max-width: 180px; top: 12%; right: 12%; opacity: 0.9; animation-duration: 50s; animation-delay: -25s; filter: drop-shadow(0 0 30px rgba(220, 38, 38, 0.4)); }
-
-.page-frame { position: fixed; inset: 15px; border: 1px solid rgba(255, 255, 255, 0.05); pointer-events: none; z-index: 5; border-radius: 4px; }
-.page-corner { 
-    position: absolute; width: 100px; height: 100px; 
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' d='M25,5 L28,22 L45,25 L28,28 L25,45 L22,28 L5,25 L22,22 Z'/%3E%3Cpath fill='%23cbd5e1' d='M65,15 L66.5,23.5 L75,25 L66.5,26.5 L65,35 L63.5,26.5 L55,25 L63.5,23.5 Z'/%3E%3Ccircle cx='85' cy='45' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='15' cy='75' r='2' fill='%23cbd5e1'/%3E%3C/svg%3E"); 
-    background-size: contain; background-repeat: no-repeat; opacity: 0.8; filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
-}
-.pc-tl { top: 0px; left: 0px; } .pc-tr { top: 0px; right: 0px; transform: scaleX(-1); } .pc-bl { bottom: 0px; left: 0px; transform: scaleY(-1); } .pc-br { bottom: 0px; right: 0px; transform: scale(-1, -1); }
-
-.text-cosmic { font-family: 'Great Vibes', cursive; color: var(--text-galaxy); text-shadow: 1px 1px 0px rgba(0,0,0,0.05); line-height: 1.4; padding: 10px; }
-
 /* EL SOBRE Y SU ENTORNO */
 .stage { position: relative; z-index: 20; transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, filter, opacity; }
-/* NUEVO: Zoom hacia el usuario al entregar la carta */
 .stage.is-background { filter: blur(5px); transform: scale3d(1.5, 1.5, 1) translate3d(0, -30px, 0); pointer-events: none; opacity: 0; }
 
 .envelope-wrapper { position: relative; width: 400px; height: 260px; margin: 0 auto; animation: gentleFloat 6s ease-in-out infinite; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 0 60px rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.8); border-radius: 4px; will-change: transform; }
@@ -61,48 +11,38 @@ body {
 
 .env-front { position: absolute; inset: 2px; z-index: 4; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 50% 49.5%, 100% 0, 100% 100%, 0 100%); filter: drop-shadow(0 -3px 10px rgba(0,0,0,0.15)); }
 
-/* NUEVO: Retrasos lógicos en el papel y la solapa */
-.letter-preview { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: 0s; display: flex; flex-direction: column; align-items: center; padding-top: 25px; border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; will-change: transform; }
-.preview-title { font-size: 3.2rem; margin: 0; }
-.envelope-wrapper.is-opening .letter-preview { transform: translate3d(0, -75%, 0) scale(0.95); transition-delay: 0.4s; }
+/* LA CARTA ADENTRO */
+.letter-preview { 
+    position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; 
+    background: #fff; border-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+    z-index: 2; /* Siempre adentro del sobre */
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0s; 
+    display: flex; flex-direction: column; align-items: center; padding-top: 25px; 
+    border: 1px solid rgba(203, 213, 225, 0.5); overflow: hidden; will-change: transform; 
+}
+.envelope-wrapper.is-opening .letter-preview { 
+    transform: translate3d(0, -75%, 0) scale(0.95); 
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s; /* Espera a que abra la solapa para salir */
+}
 
-.env-flap-container { position: absolute; top: 0; left: 0; right: 0; height: 60%; z-index: 6; transform-origin: top center; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: 0.3s; transform-style: preserve-3d; will-change: transform; }
+/* LA SOLAPA (AQUÍ ESTABA EL ERROR) */
+.env-flap-container { 
+    position: absolute; top: 0; left: 0; right: 0; height: 60%; 
+    z-index: 6; /* Capa frontal al estar cerrada */
+    transform-origin: top center; transform-style: preserve-3d; will-change: transform; 
+    /* AL CERRAR: el z-index espera 0.6s para volver al frente justo a la mitad del giro */
+    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s, z-index 0s linear 0.6s; 
+}
+.envelope-wrapper.is-opening .env-flap-container { 
+    transform: rotateX(180deg); 
+    z-index: 1; /* Pasa al fondo para no atravesar la carta */
+    /* AL ABRIR: el z-index espera 0.3s (a la mitad del giro) para esconderse atrás */
+    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0s, z-index 0s linear 0.3s; 
+}
+
 .flap-silver { position: absolute; inset: 0; background: var(--silver-gradient); clip-path: polygon(0 0, 100% 0, 50% 100%); }
 .flap-paper { position: absolute; left: 2px; right: 2px; top: 2px; bottom: 0; background: linear-gradient(to bottom, #ffffff, #f1f5f9); clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: inset 0 5px 20px rgba(255,255,255,0.8); }
-.envelope-wrapper.is-opening .env-flap-container { transform: rotateX(180deg); transition-delay: 0s; }
 
 .wax-seal { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 85px; height: 85px; z-index: 10; transition: all 0.4s ease; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); }
 .envelope-wrapper:hover .wax-seal { transform: translateX(-50%) scale(1.08); }
 .envelope-wrapper.is-opening .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
-
-/* LA CARTA EN PANTALLA COMPLETA */
-/* NUEVO: Zoom out de la carta para conectar con el sobre */
-.reading-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -30%) scale(0.7); width: 90vw; max-width: 650px; max-height: 88vh; background: #ffffff; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1000; overflow-y: auto; overflow-x: hidden; box-shadow: 0 0 100px rgba(162, 28, 175, 0.15), 0 50px 100px rgba(0, 0, 0, 0.9); will-change: transform, opacity; }
-.reading-modal.is-visible { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
-.reading-modal::-webkit-scrollbar { width: 6px; } .reading-modal::-webkit-scrollbar-track { background: transparent; } .reading-modal::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-
-.letter-body { position: relative; padding: 70px 60px; min-height: 100%; background: #ffffff; }
-
-.letter-corner { position: absolute; width: 60px; height: 60px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231e103c' d='M30,15 A 35 35 0 0 0 75,70 A 45 45 0 0 1 30,15 Z'/%3E%3Cpath fill='%234c1d95' d='M80,10 L82,18 L90,20 L82,22 L80,30 L78,22 L70,20 L78,18 Z'/%3E%3Cpath fill='%236d28d9' d='M20,70 L21.5,76.5 L28,78 L21.5,79.5 L20,86 L18.5,79.5 L12,78 L18.5,76.5 Z'/%3E%3Ccircle cx='90' cy='45' r='2' fill='%234c1d95'/%3E%3Ccircle cx='50' cy='85' r='1.5' fill='%231e103c'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.9; }
-.lc-tl { top: 15px; left: 15px; } .lc-tr { top: 15px; right: 15px; transform: scaleX(-1); } .lc-bl { bottom: 15px; left: 15px; transform: scaleY(-1); } .lc-br { bottom: 15px; right: 15px; transform: scale(-1, -1); }
-
-.close-btn { position: absolute; top: 30px; right: 35px; font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; color: var(--text-galaxy); cursor: pointer; text-transform: uppercase; transition: all 0.3s; z-index: 10; font-family: 'Cormorant Garamond', serif; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(30, 16, 60, 0.2); }
-.close-btn:hover { background: var(--text-galaxy); color: #fff; }
-
-.title-main { font-size: 4.8rem; text-align: center; margin: 10px 0 0 0; }
-.divider-svg { display: block; margin: 0 auto 35px auto; width: 150px; opacity: 0.9; }
-
-.prose { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.85; color: var(--text-body); margin-bottom: 2.2rem; text-align: justify; letter-spacing: 0.2px; font-weight: 500; }
-.dropcap { float: left; font-size: 6.5rem; line-height: 0.8; padding: 5px 15px 0 0; margin: 0; font-family: 'Great Vibes', cursive; }
-.highlight-quote { display: block; font-size: 1.5rem; font-style: italic; color: var(--text-highlight); text-align: center; margin: 40px 0; padding: 30px 25px; border-top: 1px solid rgba(76, 29, 149, 0.2); border-bottom: 1px solid rgba(76, 29, 149, 0.2); background: linear-gradient(to right, transparent, rgba(76, 29, 149, 0.05), transparent); }
-.signature { text-align: right; font-size: 3.8rem; margin-top: 50px; padding-right: 20px; }
-
-@media (max-width: 768px) {
-    .page-corner { width: 70px; height: 70px; }
-    .letter-corner { width: 45px; height: 45px; }
-    .envelope-wrapper { width: 85vw; height: 55vw; }
-    .letter-body { padding: 60px 25px; } .title-main { font-size: 3.8rem; } .prose { font-size: 1.25rem; } .dropcap { font-size: 5rem; } .signature { font-size: 3.2rem; } .close-btn { top: 25px; right: 25px; font-size: 0.8rem; }
-    .planet-1 { width: 65vw; max-width: none; top: -10%; left: -20%; }
-    .planet-2 { width: 50vw; max-width: none; bottom: 5%; right: -15%; }
-    .planet-3 { width: 35vw; top: 10%; }
-}
